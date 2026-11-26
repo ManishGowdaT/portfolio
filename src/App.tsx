@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
+import AboutPage from './components/AboutPage';
 import HeroSection from './components/HeroSection';
 import HomeIntroSection from './components/HomeIntroSection';
 import AboutSection from './components/AboutSection';
@@ -27,6 +28,7 @@ export default function App() {
   const [currentRoute, setCurrentRoute] = useState(() =>
     resolvePortfolioRoute(window.location.pathname, window.location.hash),
   );
+  const isAboutPage = currentPath.replace(/\/+$/, '') === '/AboutMe';
 
   /* ── Lenis smooth scroll ── */
   useEffect(() => {
@@ -136,6 +138,9 @@ export default function App() {
               <a href="/">Return to home <span aria-hidden="true">↗</span></a>
             </section>
           ) : (
+            isAboutPage ? (
+              <AboutPage reducedMotion={reducedMotion} />
+            ) : (
             <>
               <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
               <HomeIntroSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
@@ -159,6 +164,7 @@ export default function App() {
               <EducationSection reducedMotion={reducedMotion} />
               <ContactSection reducedMotion={reducedMotion} />
             </>
+            )
           )}
         </main>
 

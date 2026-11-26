@@ -7,7 +7,7 @@ export interface PortfolioRoute {
 }
 
 const SECTION_ROUTES: Record<string, string> = {
-  '/AboutMe': 'about',
+  '/AboutMe': 'about-page',
   '/Projects': 'projects',
   '/CaseStudies': 'projects',
   '/ContactMe': 'contact',
