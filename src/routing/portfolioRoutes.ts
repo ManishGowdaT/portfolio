@@ -7,10 +7,10 @@ export interface PortfolioRoute {
 }
 
 const SECTION_ROUTES: Record<string, string> = {
-  '/AboutMe': 'about',
+  '/AboutMe': 'about-page',
   '/Projects': 'projects',
-  '/CaseStudies': 'projects',
-  '/ContactMe': 'contact',
+  '/CaseStudies': 'case-studies',
+  '/ContactMe': 'contact-page',
 };
 
 const PROJECT_SLUGS: Record<string, string> = {
@@ -54,7 +54,7 @@ export function resolvePortfolioRoute(pathname: string, hash = ''): PortfolioRou
     const projectId = PROJECT_SLUGS[projectMatch[1]];
     const exists = projectId && PROJECTS.some((project) => project.id === projectId);
     return exists
-      ? { sectionId: 'projects', projectId, notFound: false }
+      ? { sectionId: 'case-study-detail', projectId, notFound: false }
       : { sectionId: null, projectId: null, notFound: true };
   }
 

@@ -4,6 +4,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
+import AboutPage from './components/AboutPage';
+import CaseStudiesPage from './components/CaseStudiesPage';
+import CaseStudyDetailPage from './components/CaseStudyDetailPage';
+import ContactPage from './components/ContactPage';
 import HeroSection from './components/HeroSection';
 import HomeIntroSection from './components/HomeIntroSection';
 import AboutSection from './components/AboutSection';
@@ -27,6 +31,10 @@ export default function App() {
   const [currentRoute, setCurrentRoute] = useState(() =>
     resolvePortfolioRoute(window.location.pathname, window.location.hash),
   );
+  const isAboutPage = currentPath.replace(/\/+$/, '') === '/AboutMe';
+  const isProjectsPage = currentPath.replace(/\/+$/, '') === '/Projects';
+  const isCaseStudiesPage = currentPath.replace(/\/+$/, '') === '/CaseStudies';
+  const isContactPage = currentPath.replace(/\/+$/, '') === '/ContactMe';
 
   /* ── Lenis smooth scroll ── */
   useEffect(() => {
@@ -119,7 +127,7 @@ export default function App() {
       <div className="site-shell overflow-x-clip">
         <a
           href="#main-content"
-          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[var(--accent-primary)] px-4 py-2 text-sm font-medium text-white focus:not-sr-only"
+          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[var(--brand-red)] px-4 py-2 text-sm font-medium text-[var(--brand-cream)] focus:not-sr-only"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           Skip to main content
@@ -136,6 +144,22 @@ export default function App() {
               <a href="/">Return to home <span aria-hidden="true">↗</span></a>
             </section>
           ) : (
+            isAboutPage ? (
+              <AboutPage reducedMotion={reducedMotion} />
+            ) : isProjectsPage ? (
+              <ProjectsSection
+                reducedMotion={reducedMotion}
+                onNavigate={navigateToPath}
+                standalone
+                onModalStateChange={handleModalStateChange}
+              />
+            ) : isCaseStudiesPage ? (
+              <CaseStudiesPage onNavigate={navigateToPath} />
+            ) : currentRoute.projectId ? (
+              <CaseStudyDetailPage projectId={currentRoute.projectId} onNavigate={navigateToPath} />
+            ) : isContactPage ? (
+              <ContactPage />
+            ) : (
             <>
               <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
               <HomeIntroSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
@@ -145,6 +169,7 @@ export default function App() {
               <FeaturedCaseStudiesSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
               <ProjectsSection
                 reducedMotion={reducedMotion}
+                onNavigate={navigateToPath}
                 onModalStateChange={handleModalStateChange}
                 routeProjectId={currentRoute.projectId}
                 onRouteModalClose={() => {
@@ -159,6 +184,7 @@ export default function App() {
               <EducationSection reducedMotion={reducedMotion} />
               <ContactSection reducedMotion={reducedMotion} />
             </>
+            )
           )}
         </main>
 

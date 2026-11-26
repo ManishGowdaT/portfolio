@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import { ACHIEVEMENTS } from '../data/portfolioData';
 import { useSectionReveal } from '../hooks/useSectionReveal';
 
-interface Props { reducedMotion: boolean; }
+interface Props { reducedMotion: boolean; sectionIndex?: string; }
 
-export default function AchievementsSection({ reducedMotion }: Props) {
+export default function AchievementsSection({ reducedMotion, sectionIndex = '07' }: Props) {
   const ref = useRef<HTMLElement>(null);
   useSectionReveal(ref, { reducedMotion });
 
@@ -20,7 +20,7 @@ export default function AchievementsSection({ reducedMotion }: Props) {
               className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              07
+              {sectionIndex}
             </span>
             <h2
               className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"

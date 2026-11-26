@@ -3,14 +3,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, ArrowUpRight, CheckCircle2, Shield, Layers } from 'lucide-react';
 import { PROJECTS, ProjectItem, PROFILE } from '../data/portfolioData';
 import { useSectionReveal } from '../hooks/useSectionReveal';
+import { getCaseStudyPath } from '../routing/portfolioRoutes';
 
 /* ── Placeholder image block ───────────────────────────────────── */
 function ImagePlaceholder({ title }: { title: string }) {
   return (
     <div
+      role="img"
       className="flex items-center justify-center rounded-sm bg-[var(--surface-raised)]"
       style={{ aspectRatio: '3/2' }}
-      aria-label={`${title} screenshot placeholder`}
+      aria-label={`${title} project preview unavailable`}
     >
       <span
         className="text-xs text-[var(--text-secondary)]"
@@ -19,7 +21,7 @@ function ImagePlaceholder({ title }: { title: string }) {
           letterSpacing: '0.08em',
         }}
       >
-        Screenshot
+        Preview unavailable
       </span>
     </div>
   );
@@ -63,7 +65,7 @@ function ProjectModal({
       animate={{ opacity: 1 }}
       exit={reducedMotion ? undefined : { opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(121,11,19,0.72)] backdrop-blur-sm sm:items-center sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby={`modal-${project.id}-title`}
@@ -77,7 +79,7 @@ function ProjectModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-[rgba(244,241,229,0.1)] px-6 py-6 sm:px-8">
+        <div className="flex items-start justify-between border-b border-[rgba(121,11,19,0.1)] px-6 py-6 sm:px-8">
           <div>
             <span
               className="text-xs text-[var(--text-secondary)]"
@@ -109,7 +111,7 @@ function ProjectModal({
             type="button"
             onClick={onClose}
             aria-label="Close project details"
-            className="ml-4 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-secondary)] transition-colors hover:bg-white/10 hover:text-[var(--text-primary)]"
+            className="ml-4 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-secondary)] transition-colors hover:bg-[rgba(121,11,19,0.08)] hover:text-[var(--text-primary)]"
           >
             <X className="h-4 w-4" />
           </button>
@@ -137,7 +139,7 @@ function ProjectModal({
               <Layers className="h-3.5 w-3.5" />
               Architecture
             </h4>
-            <div className="mt-4 divide-y divide-[rgba(244,241,229,0.08)]">
+            <div className="mt-4 divide-y divide-[rgba(121,11,19,0.08)]">
               {project.architecture.map((node) => (
                 <div
                   key={node.layer}
@@ -205,7 +207,7 @@ function ProjectModal({
           </div>
 
           {/* Footer */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(244,241,229,0.1)] pt-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(121,11,19,0.1)] pt-6">
             <p
               className="text-sm text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -234,11 +236,22 @@ function ProjectRow({
   project,
   reducedMotion,
   onOpen,
+  onNavigate,
+  expanded = false,
 }: {
   project: ProjectItem;
   reducedMotion: boolean;
   onOpen: (p: ProjectItem) => void;
+  onNavigate: (path: string) => void;
+  expanded?: boolean;
 }) {
+  const path = getCaseStudyPath(project.id);
+  const followCaseStudy = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    onNavigate(path);
+  };
+
   return (
     <motion.div
       layoutId={reducedMotion ? undefined : `project-row-${project.id}`}
@@ -247,10 +260,10 @@ function ProjectRow({
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="w-full border-b border-[rgba(244,241,229,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-background)]"
+        className="w-full border-b border-[rgba(121,11,19,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-red)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--brand-cream)]"
         aria-label={`View ${project.title} case study`}
       >
-        <div className="grid items-start gap-6 sm:grid-cols-12">
+        <div className={`project-row-grid grid items-start gap-6 sm:grid-cols-12${expanded ? ' project-row-expanded' : ''}`}>
           {/* Index */}
           <span
             className="text-xs text-[var(--text-secondary)] sm:col-span-1 sm:pt-2"
@@ -260,7 +273,8 @@ function ProjectRow({
           </span>
 
           {/* Content */}
-          <div className="sm:col-span-7">
+          <div className="project-row-copy sm:col-span-7">
+            {expanded && <p className="project-domain">{project.domain}</p>}
             <motion.h3
               layoutId={reducedMotion ? undefined : `project-title-${project.id}`}
               className="font-light leading-tight tracking-tight text-[var(--text-primary)] transition-colors duration-200 group-hover:text-[var(--accent-primary)] project-title-link"
@@ -282,8 +296,16 @@ function ProjectRow({
               className="mt-3 text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              {project.stack.slice(0, 6).join(', ')}{project.stack.length > 6 ? ` +${project.stack.length - 6}` : ''}
+              {expanded
+                ? project.stack.join(', ')
+                : `${project.stack.slice(0, 6).join(', ')}${project.stack.length > 6 ? ` +${project.stack.length - 6}` : ''}`}
             </p>
+            {expanded && (
+              <>
+                <p className="project-row-summary">{project.summary}</p>
+                <p className="project-row-availability">Demo link not provided</p>
+              </>
+            )}
           </div>
 
           {/* Image placeholder */}
@@ -296,6 +318,11 @@ function ProjectRow({
           </div>
         </div>
       </button>
+      {expanded && (
+        <a className="project-detail-link" href={path} onClick={followCaseStudy}>
+          View case study <ArrowUpRight aria-hidden="true" />
+        </a>
+      )}
     </motion.div>
   );
 }
@@ -303,6 +330,8 @@ function ProjectRow({
 /* ── Section ───────────────────────────────────────────────────── */
 interface Props {
   reducedMotion: boolean;
+  onNavigate: (path: string) => void;
+  standalone?: boolean;
   onModalStateChange?: (open: boolean) => void;
   routeProjectId?: string | null;
   onRouteModalClose?: () => void;
@@ -310,6 +339,8 @@ interface Props {
 
 export default function ProjectsSection({
   reducedMotion,
+  onNavigate,
+  standalone = false,
   onModalStateChange,
   routeProjectId = null,
   onRouteModalClose,
@@ -337,7 +368,7 @@ export default function ProjectsSection({
   };
 
   return (
-    <section ref={ref} id="projects" className="bg-[var(--page-background)]">
+    <section ref={ref} id="projects" className={`bg-[var(--page-background)]${standalone ? ' projects-page-section' : ''}`}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Section header */}
         <div className="grid gap-10 py-24 sm:py-32 lg:grid-cols-12">
@@ -346,7 +377,7 @@ export default function ProjectsSection({
               className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              06
+              {standalone ? '01' : '06'}
             </span>
             <h2
               className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
@@ -363,13 +394,15 @@ export default function ProjectsSection({
             className="reveal-item self-end text-sm text-[var(--text-secondary)] lg:col-span-5 lg:col-start-7"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            Click any project to view architecture, security controls, and implementation details.
+            {standalone
+              ? 'Explore the systems, technology choices, and implementation details behind each project.'
+              : 'Click any project to view architecture, security controls, and implementation details.'}
           </p>
         </div>
 
         {/* Project list */}
         <div
-          className="reveal-item border-t border-[rgba(244,241,229,0.12)] pb-24 sm:pb-32"
+          className="reveal-item border-t border-[rgba(121,11,19,0.12)] pb-24 sm:pb-32"
         >
           {PROJECTS.map((project) => (
             <ProjectRow
@@ -377,6 +410,8 @@ export default function ProjectsSection({
               project={project}
               reducedMotion={reducedMotion}
               onOpen={open}
+              onNavigate={onNavigate}
+              expanded={standalone}
             />
           ))}
         </div>
