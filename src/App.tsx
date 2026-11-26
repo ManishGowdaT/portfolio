@@ -12,23 +12,21 @@ import ProjectsSection from './components/ProjectsSection';
 import AchievementsSection from './components/AchievementsSection';
 import EducationSection from './components/EducationSection';
 import ContactSection from './components/ContactSection';
+import SiteFooter from './components/SiteFooter';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 import { resolvePortfolioRoute } from './routing/portfolioRoutes';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SECTION_IDS = [
-  'hero', 'about', 'skills', 'experience',
-  'projects', 'achievements', 'education', 'contact',
-];
-
 export default function App() {
   const reducedMotion = usePrefersReducedMotion();
   const lenisRef = useRef<Lenis | null>(null);
-  const [activeSection, setActiveSection] = useState('hero');  /* ── Lenis smooth scroll ── */
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
   const [currentRoute, setCurrentRoute] = useState(() =>
     resolvePortfolioRoute(window.location.pathname, window.location.hash),
   );
+
+  /* ── Lenis smooth scroll ── */
   useEffect(() => {
     if (reducedMotion) return;
 
@@ -58,34 +56,41 @@ export default function App() {
     };
   }, [reducedMotion]);
 
-  /* ── Active section tracking ── */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        }
-      },
-      { rootMargin: '-35% 0px -55% 0px' },
-    );
-    for (const id of SECTION_IDS) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
+  /* ── Programmatic scroll ── */
+  const scrollToSection = useCallback((id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(target, { offset: -72 });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth' });
     }
-    return () => observer.disconnect();
   }, []);
 
   /* ── Direct routes and browser history ── */
+  const syncRoute = useCallback(() => {
+    const pathname = window.location.pathname;
+    const nextRoute = resolvePortfolioRoute(pathname, window.location.hash);
+    setCurrentPath(pathname);
+    setCurrentRoute(nextRoute);
+
+    if (nextRoute.sectionId) {
+      requestAnimationFrame(() => {
+        document.getElementById(nextRoute.sectionId!)?.scrollIntoView({ behavior: 'auto' });
+      });
+    } else if (pathname !== '/' || !window.location.hash) {
+      requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+    }
+  }, []);
+
+  const navigateToPath = useCallback((path: string) => {
+    if (window.location.pathname !== path || window.location.hash) {
+      window.history.pushState(null, '', path);
+    }
+    syncRoute();
+  }, [syncRoute]);
+
   useEffect(() => {
-    const syncRoute = () => {
-      const nextRoute = resolvePortfolioRoute(window.location.pathname, window.location.hash);
-      setCurrentRoute(nextRoute);
-      if (nextRoute.sectionId) {
-        requestAnimationFrame(() => {
-          document.getElementById(nextRoute.sectionId!)?.scrollIntoView({ behavior: 'auto' });
-        });
-      }
-    };
     window.addEventListener('popstate', syncRoute);
     window.addEventListener('hashchange', syncRoute);
     if (currentRoute.sectionId) {
@@ -97,17 +102,6 @@ export default function App() {
       window.removeEventListener('popstate', syncRoute);
       window.removeEventListener('hashchange', syncRoute);
     };
-  }, []);
-
-  /* ── Programmatic scroll ── */
-  const scrollToSection = useCallback((id: string) => {
-    const target = document.getElementById(id);
-    if (!target) return;
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(target, { offset: -72 });
-    } else {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
   }, []);
 
   /* ── Lock scroll when modal is open ── */
@@ -129,7 +123,7 @@ export default function App() {
           Skip to main content
         </a>
 
-        <Navbar activeSection={activeSection} onNavigate={scrollToSection} />
+        <Navbar currentPath={currentPath} onNavigate={navigateToPath} />
 
         <main id="main-content" tabIndex={-1}>
           {currentRoute.notFound ? (
@@ -152,6 +146,7 @@ export default function App() {
                 onRouteModalClose={() => {
                   if (currentRoute.projectId) {
                     window.history.replaceState(null, '', '/CaseStudies');
+                    setCurrentPath('/CaseStudies');
                     setCurrentRoute(resolvePortfolioRoute('/CaseStudies'));
                   }
                 }}
@@ -163,15 +158,7 @@ export default function App() {
           )}
         </main>
 
-        <footer
-          className="site-footer"
-          style={{ fontFamily: 'var(--font-sans)' }}
-        >
-          <div className="site-footer-inner">
-            <span>© {new Date().getFullYear()} Manish Gowda T</span>
-            <span>Bengaluru, India</span>
-          </div>
-        </footer>
+        <SiteFooter onNavigate={navigateToPath} />
       </div>
     </MotionConfig>
   );
