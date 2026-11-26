@@ -54,25 +54,25 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
       ref={sectionRef}
       id="hero"
       aria-label="Introduction"
-      className="relative flex min-h-[100svh] flex-col justify-between bg-[#F3EFE7]"
+      className="relative flex min-h-[100svh] flex-col justify-between bg-[var(--page-background)]"
     >
       {/* Top content block — pushed below fixed nav */}
       <div className="mx-auto w-full max-w-7xl px-5 pt-32 sm:px-8 sm:pt-40 lg:px-12">
         {/* Meta line */}
         <p
-          className="hero-line text-sm text-[#6B665B]"
+          className="hero-line text-sm text-[var(--text-secondary)]"
           style={{ fontFamily: 'var(--font-sans)', opacity: reducedMotion ? 1 : 0 }}
         >
           Bengaluru, India — Developer Intern at Ellipsonic
         </p>
 
-        {/* Name — full-width display, Fraunces 300 roman */}
+        {/* Name — full-width display heading */}
         <div
           className="hero-name-wrap mt-8 overflow-hidden"
           style={{ opacity: reducedMotion ? 1 : undefined }}
         >
           <h1
-            className="font-serif leading-[0.93] font-light text-[#16140F] tracking-[-0.03em]"
+            className="font-serif leading-[0.93] font-light text-[var(--text-primary)] tracking-[-0.03em]"
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(4.5rem, 13vw, 11rem)',
@@ -92,9 +92,9 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
 
         {/* Thin rule */}
         <hr
-          className="hero-line mt-8 border-none border-t border-[#D9D3C4]"
+          className="hero-line mt-8 border-none border-t border-[var(--border-subtle)]"
           style={{
-            borderTop: '1px solid #D9D3C4',
+            borderTop: '1px solid var(--border-subtle)',
             opacity: reducedMotion ? 1 : 0,
           }}
         />
@@ -105,13 +105,13 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
           style={{ opacity: reducedMotion ? 1 : 0 }}
         >
           <p
-            className="max-w-xl text-base leading-relaxed text-[#6B665B] sm:text-lg"
+            className="max-w-xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Full Stack Developer building reliable backend systems and AI-powered workflows.
           </p>
           <span
-            className="shrink-0 text-sm text-[#6B665B] sm:text-right"
+            className="shrink-0 text-sm text-[var(--text-secondary)] sm:text-right"
             style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', letterSpacing: '0.08em' }}
             aria-hidden="true"
           >

@@ -13,6 +13,7 @@ import AchievementsSection from './components/AchievementsSection';
 import EducationSection from './components/EducationSection';
 import ContactSection from './components/ContactSection';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
+import { resolvePortfolioRoute } from './routing/portfolioRoutes';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +26,9 @@ export default function App() {
   const reducedMotion = usePrefersReducedMotion();
   const lenisRef = useRef<Lenis | null>(null);
   const [activeSection, setActiveSection] = useState('hero');  /* ── Lenis smooth scroll ── */
+  const [currentRoute, setCurrentRoute] = useState(() =>
+    resolvePortfolioRoute(window.location.pathname, window.location.hash),
+  );
   useEffect(() => {
     if (reducedMotion) return;
 
@@ -71,6 +75,30 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  /* ── Direct routes and browser history ── */
+  useEffect(() => {
+    const syncRoute = () => {
+      const nextRoute = resolvePortfolioRoute(window.location.pathname, window.location.hash);
+      setCurrentRoute(nextRoute);
+      if (nextRoute.sectionId) {
+        requestAnimationFrame(() => {
+          document.getElementById(nextRoute.sectionId!)?.scrollIntoView({ behavior: 'auto' });
+        });
+      }
+    };
+    window.addEventListener('popstate', syncRoute);
+    window.addEventListener('hashchange', syncRoute);
+    if (currentRoute.sectionId) {
+      requestAnimationFrame(() => {
+        document.getElementById(currentRoute.sectionId!)?.scrollIntoView({ behavior: 'auto' });
+      });
+    }
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+      window.removeEventListener('hashchange', syncRoute);
+    };
+  }, []);
+
   /* ── Programmatic scroll ── */
   const scrollToSection = useCallback((id: string) => {
     const target = document.getElementById(id);
@@ -92,10 +120,10 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="overflow-x-clip bg-[#F3EFE7] text-[#16140F]">
+      <div className="site-shell overflow-x-clip">
         <a
           href="#main-content"
-          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[#E4572E] px-4 py-2 text-sm font-medium text-white focus:not-sr-only"
+          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[var(--accent-primary)] px-4 py-2 text-sm font-medium text-white focus:not-sr-only"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           Skip to main content
@@ -104,24 +132,42 @@ export default function App() {
         <Navbar activeSection={activeSection} onNavigate={scrollToSection} />
 
         <main id="main-content" tabIndex={-1}>
-          <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
-          <AboutSection reducedMotion={reducedMotion} />
-          <SkillsSection reducedMotion={reducedMotion} />
-          <ExperienceSection reducedMotion={reducedMotion} />
-          <ProjectsSection
-            reducedMotion={reducedMotion}
-            onModalStateChange={handleModalStateChange}
-          />
-          <AchievementsSection reducedMotion={reducedMotion} />
-          <EducationSection reducedMotion={reducedMotion} />
-          <ContactSection reducedMotion={reducedMotion} />
+          {currentRoute.notFound ? (
+            <section className="route-message">
+              <p className="route-code">404</p>
+              <h1>Page not found</h1>
+              <p>This address doesn’t match a page in Manish’s portfolio.</p>
+              <a href="/">Return to home <span aria-hidden="true">↗</span></a>
+            </section>
+          ) : (
+            <>
+              <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
+              <AboutSection reducedMotion={reducedMotion} />
+              <SkillsSection reducedMotion={reducedMotion} />
+              <ExperienceSection reducedMotion={reducedMotion} />
+              <ProjectsSection
+                reducedMotion={reducedMotion}
+                onModalStateChange={handleModalStateChange}
+                routeProjectId={currentRoute.projectId}
+                onRouteModalClose={() => {
+                  if (currentRoute.projectId) {
+                    window.history.replaceState(null, '', '/CaseStudies');
+                    setCurrentRoute(resolvePortfolioRoute('/CaseStudies'));
+                  }
+                }}
+              />
+              <AchievementsSection reducedMotion={reducedMotion} />
+              <EducationSection reducedMotion={reducedMotion} />
+              <ContactSection reducedMotion={reducedMotion} />
+            </>
+          )}
         </main>
 
         <footer
-          className="border-t border-[#D9D3C4] py-7"
+          className="site-footer"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 text-xs text-[#6B665B] sm:px-8 lg:px-12">
+          <div className="site-footer-inner">
             <span>© {new Date().getFullYear()} Manish Gowda T</span>
             <span>Bengaluru, India</span>
           </div>

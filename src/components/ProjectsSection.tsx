@@ -8,12 +8,12 @@ import { useSectionReveal } from '../hooks/useSectionReveal';
 function ImagePlaceholder({ title }: { title: string }) {
   return (
     <div
-      className="flex items-center justify-center rounded-sm bg-[#D9D3C4]"
+      className="flex items-center justify-center rounded-sm bg-[var(--surface-raised)]"
       style={{ aspectRatio: '3/2' }}
       aria-label={`${title} screenshot placeholder`}
     >
       <span
-        className="text-xs text-[#6B665B]"
+        className="text-xs text-[var(--text-secondary)]"
         style={{
           fontFamily: 'var(--font-sans)',
           letterSpacing: '0.08em',
@@ -73,14 +73,14 @@ function ProjectModal({
         layoutId={reducedMotion ? undefined : `project-row-${project.id}`}
         transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
         data-lenis-prevent
-        className="max-h-[92vh] w-full overflow-y-auto rounded-t-2xl bg-[#1A1612] sm:max-w-3xl sm:rounded-2xl"
+        className="max-h-[92vh] w-full overflow-y-auto rounded-t-2xl bg-[var(--surface)] sm:max-w-3xl sm:rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-[rgba(217,211,196,0.1)] px-6 py-6 sm:px-8">
+        <div className="flex items-start justify-between border-b border-[rgba(244,241,229,0.1)] px-6 py-6 sm:px-8">
           <div>
             <span
-              className="text-xs text-[#A09A8E]"
+              className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
               {project.index}
@@ -88,7 +88,7 @@ function ProjectModal({
             <motion.h3
               layoutId={reducedMotion ? undefined : `project-title-${project.id}`}
               id={`modal-${project.id}-title`}
-              className="mt-1 font-light leading-tight tracking-tight text-[#F3EFE7]"
+              className="mt-1 font-light leading-tight tracking-tight text-[var(--text-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
@@ -98,7 +98,7 @@ function ProjectModal({
               {project.title}
             </motion.h3>
             <p
-              className="mt-1 text-sm text-[#A09A8E]"
+              className="mt-1 text-sm text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {project.subtitle}
@@ -109,7 +109,7 @@ function ProjectModal({
             type="button"
             onClick={onClose}
             aria-label="Close project details"
-            className="ml-4 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#A09A8E] transition-colors hover:bg-white/10 hover:text-[#F3EFE7]"
+            className="ml-4 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-secondary)] transition-colors hover:bg-white/10 hover:text-[var(--text-primary)]"
           >
             <X className="h-4 w-4" />
           </button>
@@ -122,7 +122,7 @@ function ProjectModal({
 
           {/* Overview */}
           <p
-            className="text-sm leading-relaxed text-[#A09A8E] sm:text-base"
+            className="text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             {project.summary}
@@ -131,26 +131,26 @@ function ProjectModal({
           {/* Architecture */}
           <div>
             <h4
-              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A09A8E]"
+              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               <Layers className="h-3.5 w-3.5" />
               Architecture
             </h4>
-            <div className="mt-4 divide-y divide-[rgba(217,211,196,0.08)]">
+            <div className="mt-4 divide-y divide-[rgba(244,241,229,0.08)]">
               {project.architecture.map((node) => (
                 <div
                   key={node.layer}
                   className="grid gap-2 py-4 sm:grid-cols-12"
                 >
                   <span
-                    className="text-xs font-medium text-[#E4572E] sm:col-span-4"
+                    className="text-xs font-medium text-[var(--accent-primary)] sm:col-span-4"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {node.layer}
                   </span>
                   <p
-                    className="text-sm text-[#A09A8E] sm:col-span-8"
+                    className="text-sm text-[var(--text-secondary)] sm:col-span-8"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {node.detail}
@@ -164,7 +164,7 @@ function ProjectModal({
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
               <h4
-                className="text-xs uppercase tracking-widest text-[#A09A8E]"
+                className="text-xs uppercase tracking-widest text-[var(--text-secondary)]"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Deliverables
@@ -173,10 +173,10 @@ function ProjectModal({
                 {project.highlights.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-2.5 text-sm text-[#A09A8E]"
+                    className="flex items-start gap-2.5 text-sm text-[var(--text-secondary)]"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#E4572E]" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent-primary)]" />
                     {item}
                   </li>
                 ))}
@@ -184,7 +184,7 @@ function ProjectModal({
             </div>
             <div>
               <h4
-                className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A09A8E]"
+                className="flex items-center gap-2 text-xs uppercase tracking-widest text-[var(--text-secondary)]"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 <Shield className="h-3.5 w-3.5" />
@@ -194,7 +194,7 @@ function ProjectModal({
                 {project.securityAndReliability.map((ctrl) => (
                   <li
                     key={ctrl}
-                    className="text-sm text-[#A09A8E]"
+                    className="text-sm text-[var(--text-secondary)]"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     — {ctrl}
@@ -205,9 +205,9 @@ function ProjectModal({
           </div>
 
           {/* Footer */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(217,211,196,0.1)] pt-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(244,241,229,0.1)] pt-6">
             <p
-              className="text-sm text-[#A09A8E]"
+              className="text-sm text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {project.stack.join(', ')}
@@ -216,7 +216,7 @@ function ProjectModal({
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-[#E4572E] underline underline-offset-4 decoration-[#E4572E]/40 hover:decoration-[#E4572E] transition-all"
+              className="inline-flex items-center gap-1.5 text-sm text-[var(--accent-primary)] underline underline-offset-4 decoration-[var(--accent-primary)]/40 hover:decoration-[var(--accent-primary)] transition-all"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               GitHub Profile
@@ -247,13 +247,13 @@ function ProjectRow({
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="w-full border-b border-[rgba(217,211,196,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E4572E] focus-visible:ring-offset-2 focus-visible:ring-offset-[#16140F]"
+        className="w-full border-b border-[rgba(244,241,229,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-background)]"
         aria-label={`View ${project.title} case study`}
       >
         <div className="grid items-start gap-6 sm:grid-cols-12">
           {/* Index */}
           <span
-            className="text-xs text-[#A09A8E] sm:col-span-1 sm:pt-2"
+            className="text-xs text-[var(--text-secondary)] sm:col-span-1 sm:pt-2"
             style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
           >
             {project.index}
@@ -263,7 +263,7 @@ function ProjectRow({
           <div className="sm:col-span-7">
             <motion.h3
               layoutId={reducedMotion ? undefined : `project-title-${project.id}`}
-              className="font-light leading-tight tracking-tight text-[#F3EFE7] transition-colors duration-200 group-hover:text-[#E4572E] project-title-link"
+              className="font-light leading-tight tracking-tight text-[var(--text-primary)] transition-colors duration-200 group-hover:text-[var(--accent-primary)] project-title-link"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
@@ -273,13 +273,13 @@ function ProjectRow({
               {project.title}
             </motion.h3>
             <p
-              className="mt-2 text-sm leading-relaxed text-[#A09A8E]"
+              className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {project.subtitle}
             </p>
             <p
-              className="mt-3 text-xs text-[#A09A8E]"
+              className="mt-3 text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {project.stack.slice(0, 6).join(', ')}{project.stack.length > 6 ? ` +${project.stack.length - 6}` : ''}
@@ -304,12 +304,27 @@ function ProjectRow({
 interface Props {
   reducedMotion: boolean;
   onModalStateChange?: (open: boolean) => void;
+  routeProjectId?: string | null;
+  onRouteModalClose?: () => void;
 }
 
-export default function ProjectsSection({ reducedMotion, onModalStateChange }: Props) {
+export default function ProjectsSection({
+  reducedMotion,
+  onModalStateChange,
+  routeProjectId = null,
+  onRouteModalClose,
+}: Props) {
   const ref = useRef<HTMLElement>(null);
   const [selected, setSelected] = useState<ProjectItem | null>(null);
   useSectionReveal(ref, { reducedMotion });
+
+  useEffect(() => {
+    const project = routeProjectId
+      ? PROJECTS.find((candidate) => candidate.id === routeProjectId) ?? null
+      : null;
+    setSelected(project);
+    onModalStateChange?.(Boolean(project));
+  }, [routeProjectId, onModalStateChange]);
 
   const open = (p: ProjectItem) => {
     setSelected(p);
@@ -318,22 +333,23 @@ export default function ProjectsSection({ reducedMotion, onModalStateChange }: P
   const close = () => {
     setSelected(null);
     onModalStateChange?.(false);
+    onRouteModalClose?.();
   };
 
   return (
-    <section ref={ref} id="projects" className="bg-[#16140F]">
+    <section ref={ref} id="projects" className="bg-[var(--page-background)]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Section header */}
         <div className="grid gap-10 py-24 sm:py-32 lg:grid-cols-12">
           <div className="reveal-item lg:col-span-4">
             <span
-              className="text-xs text-[#A09A8E]"
+              className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
               05
             </span>
             <h2
-              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[#F3EFE7]"
+              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
@@ -344,7 +360,7 @@ export default function ProjectsSection({ reducedMotion, onModalStateChange }: P
             </h2>
           </div>
           <p
-            className="reveal-item self-end text-sm text-[#A09A8E] lg:col-span-5 lg:col-start-7"
+            className="reveal-item self-end text-sm text-[var(--text-secondary)] lg:col-span-5 lg:col-start-7"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Click any project to view architecture, security controls, and implementation details.
@@ -353,7 +369,7 @@ export default function ProjectsSection({ reducedMotion, onModalStateChange }: P
 
         {/* Project list */}
         <div
-          className="reveal-item border-t border-[rgba(217,211,196,0.12)] pb-24 sm:pb-32"
+          className="reveal-item border-t border-[rgba(244,241,229,0.12)] pb-24 sm:pb-32"
         >
           {PROJECTS.map((project) => (
             <ProjectRow

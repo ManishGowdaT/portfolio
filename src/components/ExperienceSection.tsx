@@ -9,7 +9,7 @@ export default function ExperienceSection({ reducedMotion }: Props) {
   useSectionReveal(ref, { reducedMotion });
 
   return (
-    <section ref={ref} id="experience" className="bg-[#F3EFE7]">
+    <section ref={ref} id="experience" className="bg-[var(--page-background)]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <hr className="rule" />
 
@@ -17,13 +17,13 @@ export default function ExperienceSection({ reducedMotion }: Props) {
           {/* Left */}
           <div className="reveal-item lg:col-span-4">
             <span
-              className="text-xs text-[#6B665B]"
+              className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
               04
             </span>
             <h2
-              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[#16140F]"
+              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
@@ -40,24 +40,24 @@ export default function ExperienceSection({ reducedMotion }: Props) {
               <article key={`${item.company}-${item.role}`} className="reveal-item">
                 {/* Role row */}
                 <div
-                  className="flex flex-col gap-1 border-t border-[#D9D3C4] pt-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+                  className="flex flex-col gap-1 border-t border-[var(--border-subtle)] pt-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
                 >
                   <div>
                     <h3
-                      className="text-xl font-light tracking-tight text-[#16140F] sm:text-2xl"
+                      className="text-xl font-light tracking-tight text-[var(--text-primary)] sm:text-2xl"
                       style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}
                     >
                       {item.role}
                     </h3>
                     <p
-                      className="mt-1 text-sm text-[#6B665B]"
+                      className="mt-1 text-sm text-[var(--text-secondary)]"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {item.company} · {item.location}
                     </p>
                   </div>
                   <span
-                    className="shrink-0 text-sm text-[#C8431D]"
+                    className="shrink-0 text-sm text-[var(--accent-yellow)]"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {item.period}
@@ -66,7 +66,7 @@ export default function ExperienceSection({ reducedMotion }: Props) {
 
                 {/* Summary */}
                 <p
-                  className="mt-5 max-w-[60ch] text-sm leading-relaxed text-[#6B665B]"
+                  className="mt-5 max-w-[60ch] text-sm leading-relaxed text-[var(--text-secondary)]"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {item.summary}
@@ -80,13 +80,13 @@ export default function ExperienceSection({ reducedMotion }: Props) {
                       className="grid gap-1 sm:grid-cols-12 sm:gap-4"
                     >
                       <span
-                        className="text-xs font-medium uppercase tracking-widest text-[#6B665B] sm:col-span-4"
+                        className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)] sm:col-span-4"
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {r.title}
                       </span>
                       <p
-                        className="text-sm leading-relaxed text-[#16140F] sm:col-span-8"
+                        className="text-sm leading-relaxed text-[var(--text-primary)] sm:col-span-8"
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {r.detail}

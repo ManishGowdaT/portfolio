@@ -1,20 +1,36 @@
 @import "tailwindcss";
 
-/* ─── Design Tokens ──────────────────────────────────────────── */
+/*
+ * Phase 1 foundation tokens. Values are provisional approximations from the
+ * Phase 0 browser captures; computed styles and responsive measurements were
+ * unavailable. Replace with measured values after a visual comparison.
+ */
 :root {
-  --bg:          #F3EFE7;
-  --ink:         #16140F;
-  --muted:       #6B665B;
-  --rule:        #D9D3C4;
-  --accent:      #E4572E;   /* vermilion — large text, underlines, hover */
-  --accent-sm:   #C8431D;   /* darker — small accent text, contrast-safe */
-  --bg-dark:     #16140F;
-  --ink-dark:    #F3EFE7;
-  --muted-dark:  #A09A8E;
+  --page-background: #0B0C0C;
+  --surface: #151717;
+  --surface-raised: #1D1F1F;
+  --text-primary: #F4F1E5;
+  --text-secondary: #B9B6A8;
+  --border-subtle: #292B2A;
+  --accent-primary: #A477FF;
+  --accent-yellow: #F5CC63;
+  --accent-teal: #17D6C4;
+
+  /* Compatibility aliases while sections migrate to the shared tokens. */
+  --bg: var(--page-background);
+  --ink: var(--text-primary);
+  --muted: var(--text-secondary);
+  --rule: var(--border-subtle);
+  --accent: var(--accent-primary);
+  --accent-sm: var(--accent-yellow);
+  --bg-dark: var(--page-background);
+  --ink-dark: var(--text-primary);
+  --muted-dark: var(--text-secondary);
 
   /* Typography */
-  --font-serif:  "Fraunces", Georgia, "Times New Roman", serif;
-  --font-sans:   "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter Tight", Inter, system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-display);
+  --font-sans: var(--font-display);
 
   /* Motion tokens */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
@@ -39,14 +55,73 @@
   .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
   h1, h2, h3, h4, .font-serif {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent-yellow);
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+.site-shell {
+  min-height: 100svh;
+  background: var(--page-background);
+  color: var(--text-primary);
+  color-scheme: dark;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding-block: 1.75rem;
+  font-family: var(--font-sans);
+}
+
+.site-footer-inner {
+  display: flex;
+  width: min(100% - 2.5rem, 80rem);
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.route-message {
+  display: grid;
+  min-height: min(75svh, 52rem);
+  align-content: center;
+  justify-items: start;
+  gap: 1rem;
+  width: min(100% - 2.5rem, 80rem);
+  margin-inline: auto;
+  padding-block: 5rem;
+}
+
+.route-message .route-code {
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+}
+
+.route-message h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.route-message p:not(.route-code) {
+  max-width: 38rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.route-message a {
+  color: var(--accent-yellow);
+  text-underline-offset: 0.25em;
 }
 
 /* ─── Nav link underline draw-in ─────────────────────────────── */
@@ -132,13 +207,13 @@
 
 /* ─── Selection ──────────────────────────────────────────────── */
 ::selection {
-  background: rgba(228, 87, 46, 0.18);
-  color: var(--ink);
+  background: rgba(164, 119, 255, 0.24);
+  color: var(--text-primary);
 }
 
 /* ─── Smooth image placeholder reveal ───────────────────────── */
 .img-placeholder {
-  background-color: #E8E3D8;
+  background-color: var(--surface);
   transition: opacity 0.3s var(--ease-out);
 }
 .group:hover .img-placeholder {
@@ -152,5 +227,17 @@
   .hero-link .arrow,
   .project-title-link::after {
     transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer-inner {
+    width: calc(100% - 2rem);
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .route-message {
+    width: calc(100% - 2rem);
   }
 }

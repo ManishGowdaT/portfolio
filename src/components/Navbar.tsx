@@ -29,7 +29,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-500 ${
         scrolled
-          ? 'border-b border-[#D9D3C4] bg-[#F3EFE7]/[0.97] backdrop-blur-sm'
+          ? 'border-b border-[var(--border-subtle)] bg-[var(--page-background)]/[0.97] backdrop-blur-sm'
           : 'bg-transparent'
       }`}
     >
@@ -38,7 +38,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
         <a
           href="#hero"
           onClick={(e) => go(e, 'hero')}
-          className="text-sm font-medium uppercase tracking-widest text-[#16140F] transition-colors duration-200 hover:text-[#E4572E]"
+          className="text-sm font-medium uppercase tracking-widest text-[var(--text-primary)] transition-colors duration-200 hover:text-[var(--accent-primary)]"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           {NAME}
@@ -52,7 +52,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
               href={`#${id}`}
               onClick={(e) => go(e, id)}
               aria-current={activeSection === id ? 'location' : undefined}
-              className="nav-link text-sm font-medium capitalize text-[#16140F]"
+              className="nav-link text-sm font-medium capitalize text-[var(--text-primary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {id}
@@ -75,7 +75,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
           ].map((cls, i) => (
             <span
               key={i}
-              className={`block h-px w-5 bg-[#16140F] origin-center transition-all duration-300 ${cls}`}
+              className={`block h-px w-5 bg-[var(--text-primary)] origin-center transition-all duration-300 ${cls}`}
             />
           ))}
         </button>
@@ -85,7 +85,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
       {mobileOpen && (
         <nav
           aria-label="Mobile navigation"
-          className="border-t border-[#D9D3C4] bg-[#F3EFE7] px-5 pb-6 pt-4 md:hidden"
+          className="border-t border-[var(--border-subtle)] bg-[var(--page-background)] px-5 pb-6 pt-4 md:hidden"
         >
           <div className="flex flex-col gap-4">
             {MOBILE_LINKS.map((id) => (
@@ -94,8 +94,8 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
                 href={`#${id}`}
                 onClick={(e) => go(e, id)}
                 aria-current={activeSection === id ? 'location' : undefined}
-                className={`text-sm font-medium capitalize transition-colors hover:text-[#E4572E] ${
-                  activeSection === id ? 'text-[#C8431D]' : 'text-[#16140F]'
+                className={`text-sm font-medium capitalize transition-colors hover:text-[var(--accent-primary)] ${
+                  activeSection === id ? 'text-[var(--accent-yellow)]' : 'text-[var(--text-primary)]'
                 }`}
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
