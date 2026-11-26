@@ -20,7 +20,7 @@ export default function SkillsSection({ reducedMotion }: Props) {
               className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              02
+              03
             </span>
             <h2
               className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
@@ -37,12 +37,15 @@ export default function SkillsSection({ reducedMotion }: Props) {
           {/* Right — grouped list */}
           <div className="lg:col-span-8">
             <div className="divide-y divide-[var(--border-subtle)] border-t border-[var(--border-subtle)]">
-              {SKILLS.map((group) => (
+              {SKILLS.map((group, index) => (
                 <div
                   key={group.id}
                   className="reveal-item grid gap-2 py-5 sm:grid-cols-12 sm:gap-6 sm:items-baseline"
                 >
-                  <div className="sm:col-span-4">
+                  <div className="flex items-center gap-3 sm:col-span-4">
+                    <span className="skill-group-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                     <span
                       className="text-xs uppercase tracking-widest text-[var(--text-secondary)]"
                       style={{ fontFamily: 'var(--font-sans)' }}

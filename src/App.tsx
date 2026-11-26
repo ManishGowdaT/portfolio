@@ -5,9 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import HomeIntroSection from './components/HomeIntroSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
+import FeaturedCaseStudiesSection from './components/FeaturedCaseStudiesSection';
 import ProjectsSection from './components/ProjectsSection';
 import AchievementsSection from './components/AchievementsSection';
 import EducationSection from './components/EducationSection';
@@ -136,9 +138,11 @@ export default function App() {
           ) : (
             <>
               <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
+              <HomeIntroSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
               <AboutSection reducedMotion={reducedMotion} />
               <SkillsSection reducedMotion={reducedMotion} />
               <ExperienceSection reducedMotion={reducedMotion} />
+              <FeaturedCaseStudiesSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
               <ProjectsSection
                 reducedMotion={reducedMotion}
                 onModalStateChange={handleModalStateChange}

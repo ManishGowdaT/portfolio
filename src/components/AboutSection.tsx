@@ -20,9 +20,10 @@ export default function AboutSection({ reducedMotion }: Props) {
               className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              01
+              02
             </span>
             <h2
+              id="what-i-do"
               className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
@@ -30,20 +31,13 @@ export default function AboutSection({ reducedMotion }: Props) {
                 fontWeight: 300,
               }}
             >
-              About
+              What I do
             </h2>
           </div>
 
-          {/* Right — text + focus list */}
+          {/* Right — focus areas */}
           <div className="lg:col-span-8">
-            <p
-              className="reveal-item max-w-[60ch] text-base leading-[1.75] text-[var(--text-primary)] sm:text-lg"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {PROFILE.summary}
-            </p>
-
-            <div className="reveal-item mt-10 grid grid-cols-1 border-t border-[var(--border-subtle)] sm:grid-cols-3">
+            <div className="reveal-item grid grid-cols-1 border-t border-[var(--border-subtle)] sm:grid-cols-3">
               {PROFILE.aboutPillars.map((pillar) => (
                 <div
                   key={pillar.code}

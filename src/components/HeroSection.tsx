@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
+import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 import gsap from 'gsap';
+import { PROFILE } from '../data/portfolioData';
 
 interface HeroSectionProps {
   reducedMotion: boolean;
@@ -13,7 +15,6 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
     if (reducedMotion || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Name block: clip-path wipe from bottom → top (editorial reveal)
       gsap.fromTo(
         '.hero-name-wrap',
         { clipPath: 'inset(0 0 100% 0)' },
@@ -25,17 +26,16 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
           clearProps: 'clipPath',
         },
       );
-      // Remaining hero lines stagger-fade
       gsap.fromTo(
         '.hero-line',
-        { y: 28, opacity: 0 },
+        { y: 24, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.85,
+          duration: 0.8,
           ease: 'power3.out',
-          stagger: 0.1,
-          delay: 0.3,
+          stagger: 0.08,
+          delay: 0.25,
           clearProps: 'transform',
         },
       );
@@ -44,8 +44,8 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
     return () => ctx.revert();
   }, [reducedMotion]);
 
-  const goTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
+  const goTo = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    event.preventDefault();
     onNavigate(id);
   };
 
@@ -53,96 +53,73 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
     <section
       ref={sectionRef}
       id="hero"
-      aria-label="Introduction"
-      className="relative flex min-h-[100svh] flex-col justify-between bg-[var(--page-background)]"
+      aria-labelledby="hero-title"
+      className="home-hero"
     >
-      {/* Top content block — pushed below fixed nav */}
-      <div className="mx-auto w-full max-w-7xl px-5 pt-32 sm:px-8 sm:pt-40 lg:px-12">
-        {/* Meta line */}
-        <p
-          className="hero-line text-sm text-[var(--text-secondary)]"
-          style={{ fontFamily: 'var(--font-sans)', opacity: reducedMotion ? 1 : 0 }}
+      <div className="hero-grid" aria-hidden="true" />
+
+      <div className="hero-content">
+        <div
+          className="hero-greeting hero-line"
+          style={{ opacity: reducedMotion ? 1 : 0 }}
         >
-          Bengaluru, India — Developer Intern at Ellipsonic
+          <span className="hero-avatar" aria-hidden="true">MG</span>
+          <span className="hero-greeting-text">Hello, I’m {PROFILE.name}</span>
+        </div>
+
+        <p
+          className="hero-location hero-line"
+          style={{ opacity: reducedMotion ? 1 : 0 }}
+        >
+          <span className="hero-location-dot" aria-hidden="true" />
+          Based in {PROFILE.location}
         </p>
 
-        {/* Name — full-width display heading */}
-        <div
-          className="hero-name-wrap mt-8 overflow-hidden"
-          style={{ opacity: reducedMotion ? 1 : undefined }}
-        >
-          <h1
-            className="font-serif leading-[0.93] font-light text-[var(--text-primary)] tracking-[-0.03em]"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(4.5rem, 13vw, 11rem)',
-              fontWeight: 300,
-            }}
-          >
-            Manish<br />
-            Gowda{' '}
-            <em
-              className="italic"
-              style={{ letterSpacing: '-0.02em' }}
-            >
-              T
-            </em>
+        <div className="hero-name-wrap">
+          <h1 id="hero-title" className="hero-title">
+            <span className="hero-title-first">Full Stack</span>
+            <span className="hero-title-second">Developer</span>
           </h1>
         </div>
 
-        {/* Thin rule */}
-        <hr
-          className="hero-line mt-8 border-none border-t border-[var(--border-subtle)]"
-          style={{
-            borderTop: '1px solid var(--border-subtle)',
-            opacity: reducedMotion ? 1 : 0,
-          }}
-        />
-
-        {/* Subtitle + right-aligned index */}
         <div
-          className="hero-line mt-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+          className="hero-description-row hero-line"
           style={{ opacity: reducedMotion ? 1 : 0 }}
         >
-          <p
-            className="max-w-xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg"
-            style={{ fontFamily: 'var(--font-sans)' }}
+          <p className="hero-description">{PROFILE.heroLead}</p>
+          <a
+            href="#contact"
+            onClick={(event) => goTo(event, 'contact')}
+            className="hero-contact-link"
           >
-            Full Stack Developer building reliable backend systems and AI-powered workflows.
-          </p>
-          <span
-            className="shrink-0 text-sm text-[var(--text-secondary)] sm:text-right"
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', letterSpacing: '0.08em' }}
-            aria-hidden="true"
-          >
-            2026
-          </span>
+            <span className="hero-contact-dot" aria-hidden="true" />
+            <span>Let’s Connect</span>
+            <ArrowUpRight aria-hidden="true" />
+          </a>
         </div>
       </div>
 
-      {/* Bottom links — pinned to bottom of viewport */}
       <div
-        className="hero-line mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 lg:px-12"
+        className="hero-bottom hero-line"
         style={{ opacity: reducedMotion ? 1 : 0 }}
       >
-        <div className="flex items-center gap-8">
-          <a
-            href="#projects"
-            onClick={(e) => goTo(e, 'projects')}
-            className="hero-link"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            <span className="arrow" aria-hidden="true">↓</span>
-            <span>Projects</span>
+        <a
+          href="#case-studies"
+          onClick={(event) => goTo(event, 'case-studies')}
+          className="hero-explore-link"
+        >
+          <ArrowDown aria-hidden="true" />
+          <span>Explore projects</span>
+        </a>
+        <div className="hero-social-links" aria-label="Social and email links">
+          <a href={PROFILE.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+            <Github aria-hidden="true" />
           </a>
-          <a
-            href="#contact"
-            onClick={(e) => goTo(e, 'contact')}
-            className="hero-link"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            <span className="arrow" aria-hidden="true">↓</span>
-            <span>Contact</span>
+          <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <Linkedin aria-hidden="true" />
+          </a>
+          <a href={`mailto:${PROFILE.email}`} aria-label="Email">
+            <Mail aria-hidden="true" />
           </a>
         </div>
       </div>

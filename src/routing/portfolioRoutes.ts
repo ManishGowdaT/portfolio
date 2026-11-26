@@ -19,8 +19,19 @@ const PROJECT_SLUGS: Record<string, string> = {
   'sales-forecasting-system': 'sales-forecasting',
 };
 
+const PROJECT_PATHS: Record<string, string> = {
+  optionalgo: 'optionalgo',
+  lexdraft: 'lexdraft',
+  'sales-forecasting': 'sales-forecasting-system',
+};
+
+export function getCaseStudyPath(projectId: string): string {
+  const slug = PROJECT_PATHS[projectId];
+  return slug ? `/CaseStudies/${slug}` : '/CaseStudies';
+}
+
 const SECTION_IDS = new Set([
-  'hero', 'about', 'skills', 'experience', 'projects', 'achievements', 'education', 'contact',
+  'hero', 'case-studies', 'about', 'skills', 'experience', 'projects', 'achievements', 'education', 'contact',
 ]);
 
 export function resolvePortfolioRoute(pathname: string, hash = ''): PortfolioRoute {

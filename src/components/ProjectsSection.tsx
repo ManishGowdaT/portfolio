@@ -346,7 +346,7 @@ export default function ProjectsSection({
               className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              05
+              06
             </span>
             <h2
               className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
@@ -356,7 +356,7 @@ export default function ProjectsSection({
                 fontWeight: 300,
               }}
             >
-              Projects
+              My Projects
             </h2>
           </div>
           <p

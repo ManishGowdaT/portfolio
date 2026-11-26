@@ -31,7 +31,7 @@ export default function ContactSection({ reducedMotion }: Props) {
             className="reveal-item block text-xs text-[var(--text-secondary)]"
             style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
           >
-            08
+            09
           </span>
 
           {/* Headline */}
