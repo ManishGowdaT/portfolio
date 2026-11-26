@@ -65,7 +65,7 @@ function ProjectModal({
       animate={{ opacity: 1 }}
       exit={reducedMotion ? undefined : { opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(121,11,19,0.72)] backdrop-blur-sm sm:items-center sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby={`modal-${project.id}-title`}
@@ -79,7 +79,7 @@ function ProjectModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-[rgba(244,241,229,0.1)] px-6 py-6 sm:px-8">
+        <div className="flex items-start justify-between border-b border-[rgba(121,11,19,0.1)] px-6 py-6 sm:px-8">
           <div>
             <span
               className="text-xs text-[var(--text-secondary)]"
@@ -111,7 +111,7 @@ function ProjectModal({
             type="button"
             onClick={onClose}
             aria-label="Close project details"
-            className="ml-4 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-secondary)] transition-colors hover:bg-white/10 hover:text-[var(--text-primary)]"
+            className="ml-4 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-secondary)] transition-colors hover:bg-[rgba(121,11,19,0.08)] hover:text-[var(--text-primary)]"
           >
             <X className="h-4 w-4" />
           </button>
@@ -139,7 +139,7 @@ function ProjectModal({
               <Layers className="h-3.5 w-3.5" />
               Architecture
             </h4>
-            <div className="mt-4 divide-y divide-[rgba(244,241,229,0.08)]">
+            <div className="mt-4 divide-y divide-[rgba(121,11,19,0.08)]">
               {project.architecture.map((node) => (
                 <div
                   key={node.layer}
@@ -207,7 +207,7 @@ function ProjectModal({
           </div>
 
           {/* Footer */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(244,241,229,0.1)] pt-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(121,11,19,0.1)] pt-6">
             <p
               className="text-sm text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -260,7 +260,7 @@ function ProjectRow({
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="w-full border-b border-[rgba(244,241,229,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-background)]"
+        className="w-full border-b border-[rgba(121,11,19,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-red)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--brand-cream)]"
         aria-label={`View ${project.title} case study`}
       >
         <div className={`project-row-grid grid items-start gap-6 sm:grid-cols-12${expanded ? ' project-row-expanded' : ''}`}>
@@ -402,7 +402,7 @@ export default function ProjectsSection({
 
         {/* Project list */}
         <div
-          className="reveal-item border-t border-[rgba(244,241,229,0.12)] pb-24 sm:pb-32"
+          className="reveal-item border-t border-[rgba(121,11,19,0.12)] pb-24 sm:pb-32"
         >
           {PROJECTS.map((project) => (
             <ProjectRow

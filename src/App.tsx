@@ -127,7 +127,7 @@ export default function App() {
       <div className="site-shell overflow-x-clip">
         <a
           href="#main-content"
-          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[var(--accent-primary)] px-4 py-2 text-sm font-medium text-white focus:not-sr-only"
+          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[var(--brand-red)] px-4 py-2 text-sm font-medium text-[var(--brand-cream)] focus:not-sr-only"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           Skip to main content
