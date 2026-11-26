@@ -29,6 +29,7 @@ export default function App() {
     resolvePortfolioRoute(window.location.pathname, window.location.hash),
   );
   const isAboutPage = currentPath.replace(/\/+$/, '') === '/AboutMe';
+  const isProjectsPage = currentPath.replace(/\/+$/, '') === '/Projects';
 
   /* ── Lenis smooth scroll ── */
   useEffect(() => {
@@ -140,6 +141,13 @@ export default function App() {
           ) : (
             isAboutPage ? (
               <AboutPage reducedMotion={reducedMotion} />
+            ) : isProjectsPage ? (
+              <ProjectsSection
+                reducedMotion={reducedMotion}
+                onNavigate={navigateToPath}
+                standalone
+                onModalStateChange={handleModalStateChange}
+              />
             ) : (
             <>
               <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
@@ -150,6 +158,7 @@ export default function App() {
               <FeaturedCaseStudiesSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
               <ProjectsSection
                 reducedMotion={reducedMotion}
+                onNavigate={navigateToPath}
                 onModalStateChange={handleModalStateChange}
                 routeProjectId={currentRoute.projectId}
                 onRouteModalClose={() => {
