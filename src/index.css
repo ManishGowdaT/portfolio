@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+:root {
+  --bg:          #F3EFE7;
+  --ink:         #16140F;
+  --muted:       #6B665B;
+  --rule:        #D9D3C4;
+  --accent:      #E4572E;   /* vermilion — large text, underlines, hover */
+  --accent-sm:   #C8431D;   /* darker — small accent text, contrast-safe */
+  --bg-dark:     #16140F;
+  --ink-dark:    #F3EFE7;
+  --muted-dark:  #A09A8E;
+
+  /* Typography */
+  --font-serif:  "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans:   "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Motion tokens */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-reveal:  0.7s;
+  --dur-handoff: 0.9s;
+  --stagger-line: 0.06s;
+  --stagger-row:  0.08s;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--ink);
+    scroll-padding-top: 4.5rem;
+  }
+
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ─── Nav link underline draw-in ─────────────────────────────── */
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s var(--ease-out);
+}
+.nav-link:hover::after,
+.nav-link[aria-current="location"]::after {
+  transform: scaleX(1);
+}
+
+/* ─── Hero arrow links ───────────────────────────────────────── */
+.hero-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: color 0.25s var(--ease-out);
+}
+.hero-link:hover {
+  color: var(--accent);
+}
+.hero-link .arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out);
+}
+.hero-link:hover .arrow {
+  transform: translateY(3px);
+}
+
+/* ─── Hairline dividers ──────────────────────────────────────── */
+.rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+}
+
+/* ─── Project row title underline draw-in ────────────────────── */
+.project-title-link {
+  position: relative;
+  display: inline;
+}
+.project-title-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s var(--ease-out);
+}
+.group:hover .project-title-link::after,
+.group:focus-within .project-title-link::after {
+  transform: scaleX(1);
+}
+
+/* ─── Page-load fade-in ──────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#root {
+  animation: fadeUp 0.5s var(--ease-out) both;
+}
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection {
+  background: rgba(228, 87, 46, 0.18);
+  color: var(--ink);
+}
+
+/* ─── Smooth image placeholder reveal ───────────────────────── */
+.img-placeholder {
+  background-color: #E8E3D8;
+  transition: opacity 0.3s var(--ease-out);
+}
+.group:hover .img-placeholder {
+  opacity: 1 !important;
+}
+
+/* ─── Reduced-motion overrides ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #root { animation: none; }
+  .nav-link::after,
+  .hero-link .arrow,
+  .project-title-link::after {
+    transition: none;
+  }
+}
