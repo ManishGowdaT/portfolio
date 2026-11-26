@@ -1,17 +1,37 @@
-import { useEffect, useState } from 'react';
-
-const NAME = 'Manish Gowda T';
-const NAV_LINKS = ['projects', 'contact'] as const;
-const MOBILE_LINKS = ['about', 'skills', 'experience', 'projects', 'achievements', 'education', 'contact'] as const;
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, BookOpen, BriefcaseBusiness, House, Mail, Menu, UserRound, X } from 'lucide-react';
+import { getActiveNavigationId, NAV_ITEMS } from '../routing/navigation';
 
 interface NavbarProps {
-  activeSection: string;
-  onNavigate: (id: string) => void;
+  currentPath: string;
+  onNavigate: (path: string) => void;
 }
 
-export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
+const NAV_ICONS = {
+  home: House,
+  caseStudies: BookOpen,
+  projects: BriefcaseBusiness,
+  about: UserRound,
+  contact: Mail,
+} as const;
+
+function followRoute(
+  event: React.MouseEvent<HTMLAnchorElement>,
+  path: string,
+  onNavigate: (path: string) => void,
+) {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  onNavigate(path);
+}
+
+export default function Navbar({ currentPath, onNavigate }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const menuDialogRef = useRef<HTMLDivElement>(null);
+  const activeId = getActiveNavigationId(currentPath);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 32);
@@ -19,92 +39,171 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const go = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    onNavigate(id);
-  };
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const focusFrame = window.requestAnimationFrame(() => firstLinkRef.current?.focus());
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setMobileOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab' || !menuDialogRef.current) return;
+
+      const focusable = Array.from(
+        menuDialogRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+
+    const handleBreakpoint = (event: MediaQueryListEvent) => {
+      if (event.matches) setMobileOpen(false);
+    };
+
+    const desktopBreakpoint = window.matchMedia('(min-width: 1024px)');
+    document.addEventListener('keydown', handleKeyDown);
+    desktopBreakpoint.addEventListener('change', handleBreakpoint);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+      desktopBreakpoint.removeEventListener('change', handleBreakpoint);
+      if (!window.matchMedia('(min-width: 1024px)').matches) {
+        menuButtonRef.current?.focus();
+      }
+    };
+  }, [mobileOpen]);
+
+  const closeMobileMenu = () => setMobileOpen(false);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-500 ${
-        scrolled
-          ? 'border-b border-[#D9D3C4] bg-[#F3EFE7]/[0.97] backdrop-blur-sm'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-        {/* Name — left */}
-        <a
-          href="#hero"
-          onClick={(e) => go(e, 'hero')}
-          className="text-sm font-medium uppercase tracking-widest text-[#16140F] transition-colors duration-200 hover:text-[#E4572E]"
-          style={{ fontFamily: 'var(--font-sans)' }}
-        >
-          {NAME}
-        </a>
+    <>
+      <header
+        className={`site-header ${scrolled ? 'site-header-scrolled' : ''}`}
+      >
+        <div className="site-header-inner">
+          <a
+            href="/"
+            onClick={(event) => followRoute(event, '/', onNavigate)}
+            className="brand-pill"
+            aria-label="Manish Gowda T — home"
+          >
+            <span className="brand-dot" aria-hidden="true" />
+            <span>Manish Gowda T</span>
+          </a>
 
-        {/* Desktop nav — right */}
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary navigation">
-          {NAV_LINKS.map((id) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              onClick={(e) => go(e, id)}
-              aria-current={activeSection === id ? 'location' : undefined}
-              className="nav-link text-sm font-medium capitalize text-[#16140F]"
-              style={{ fontFamily: 'var(--font-sans)' }}
+          <nav className="desktop-nav" aria-label="Primary navigation">
+            <div className="desktop-nav-pill">
+              {NAV_ITEMS.slice(0, 4).map((item) => {
+                const Icon = NAV_ICONS[item.id];
+                const active = activeId === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={item.path}
+                    onClick={(event) => followRoute(event, item.path, onNavigate)}
+                    aria-current={active ? 'page' : undefined}
+                    className={`desktop-nav-link ${active ? 'is-active' : ''}`}
+                  >
+                    <Icon aria-hidden="true" />
+                    <span>{item.label}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </nav>
+
+          <a
+            href="/ContactMe"
+            onClick={(event) => followRoute(event, '/ContactMe', onNavigate)}
+            aria-current={activeId === 'contact' ? 'page' : undefined}
+            className={`contact-pill ${activeId === 'contact' ? 'is-active' : ''}`}
+          >
+            <Mail aria-hidden="true" />
+            <span>Contact Me</span>
+            <ArrowUpRight className="contact-pill-arrow" aria-hidden="true" />
+          </a>
+
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="mobile-menu-toggle"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu-dialog"
+            onClick={() => setMobileOpen((open) => !open)}
+          >
+            {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
+        </div>
+      </header>
+
+      <div
+        className="mobile-menu-backdrop"
+        hidden={!mobileOpen}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeMobileMenu();
+        }}
+      >
+        <div
+          ref={menuDialogRef}
+          id="mobile-menu-dialog"
+          className="mobile-menu-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mobile-menu-title"
+        >
+          <div className="mobile-menu-heading">
+            <h2 id="mobile-menu-title">Explore</h2>
+            <button
+              type="button"
+              className="mobile-menu-close"
+              aria-label="Close menu"
+              onClick={closeMobileMenu}
             >
-              {id}
-            </a>
-          ))}
-        </nav>
-
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((p) => !p)}
-          className="flex flex-col gap-[5px] p-2 md:hidden"
-        >
-          {[
-            mobileOpen ? 'translate-y-[7px] rotate-45' : '',
-            mobileOpen ? 'opacity-0' : '',
-            mobileOpen ? '-translate-y-[7px] -rotate-45' : '',
-          ].map((cls, i) => (
-            <span
-              key={i}
-              className={`block h-px w-5 bg-[#16140F] origin-center transition-all duration-300 ${cls}`}
-            />
-          ))}
-        </button>
-      </div>
-
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <nav
-          aria-label="Mobile navigation"
-          className="border-t border-[#D9D3C4] bg-[#F3EFE7] px-5 pb-6 pt-4 md:hidden"
-        >
-          <div className="flex flex-col gap-4">
-            {MOBILE_LINKS.map((id) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                onClick={(e) => go(e, id)}
-                aria-current={activeSection === id ? 'location' : undefined}
-                className={`text-sm font-medium capitalize transition-colors hover:text-[#E4572E] ${
-                  activeSection === id ? 'text-[#C8431D]' : 'text-[#16140F]'
-                }`}
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                {id}
-              </a>
-            ))}
+              <X aria-hidden="true" />
+            </button>
           </div>
-        </nav>
-      )}
-    </header>
+          <nav className="mobile-menu-links" aria-label="Mobile navigation">
+            {NAV_ITEMS.map((item, index) => {
+              const Icon = NAV_ICONS[item.id];
+              const active = activeId === item.id;
+              return (
+                <a
+                  key={item.id}
+                  ref={index === 0 ? firstLinkRef : undefined}
+                  href={item.path}
+                  onClick={(event) => {
+                    closeMobileMenu();
+                    followRoute(event, item.path, onNavigate);
+                  }}
+                  aria-current={active ? 'page' : undefined}
+                  className={`mobile-menu-link ${active ? 'is-active' : ''}`}
+                >
+                  <span className="mobile-menu-link-label">
+                    <Icon aria-hidden="true" />
+                    <span>{item.label}</span>
+                  </span>
+                  <ArrowUpRight aria-hidden="true" />
+                </a>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+    </>
   );
 }

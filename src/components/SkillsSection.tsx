@@ -9,7 +9,7 @@ export default function SkillsSection({ reducedMotion }: Props) {
   useSectionReveal(ref, { reducedMotion });
 
   return (
-    <section ref={ref} id="skills" className="bg-[#F3EFE7]">
+    <section ref={ref} id="skills" className="bg-[var(--page-background)]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <hr className="rule" />
 
@@ -17,13 +17,13 @@ export default function SkillsSection({ reducedMotion }: Props) {
           {/* Left — index + heading */}
           <div className="reveal-item lg:col-span-4">
             <span
-              className="text-xs text-[#6B665B]"
+              className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              02
+              03
             </span>
             <h2
-              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[#16140F]"
+              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
@@ -36,22 +36,25 @@ export default function SkillsSection({ reducedMotion }: Props) {
 
           {/* Right — grouped list */}
           <div className="lg:col-span-8">
-            <div className="divide-y divide-[#D9D3C4] border-t border-[#D9D3C4]">
-              {SKILLS.map((group) => (
+            <div className="divide-y divide-[var(--border-subtle)] border-t border-[var(--border-subtle)]">
+              {SKILLS.map((group, index) => (
                 <div
                   key={group.id}
                   className="reveal-item grid gap-2 py-5 sm:grid-cols-12 sm:gap-6 sm:items-baseline"
                 >
-                  <div className="sm:col-span-4">
+                  <div className="flex items-center gap-3 sm:col-span-4">
+                    <span className="skill-group-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                     <span
-                      className="text-xs uppercase tracking-widest text-[#6B665B]"
+                      className="text-xs uppercase tracking-widest text-[var(--text-secondary)]"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {group.category}
                     </span>
                   </div>
                   <p
-                    className="text-sm leading-relaxed text-[#16140F] sm:col-span-8"
+                    className="text-sm leading-relaxed text-[var(--text-primary)] sm:col-span-8"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {group.items.join(', ')}

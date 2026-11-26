@@ -9,7 +9,7 @@ export default function AchievementsSection({ reducedMotion }: Props) {
   useSectionReveal(ref, { reducedMotion });
 
   return (
-    <section ref={ref} id="achievements" className="bg-[#F3EFE7]">
+    <section ref={ref} id="achievements" className="bg-[var(--page-background)]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <hr className="rule" />
 
@@ -17,13 +17,13 @@ export default function AchievementsSection({ reducedMotion }: Props) {
           {/* Left */}
           <div className="reveal-item lg:col-span-4">
             <span
-              className="text-xs text-[#6B665B]"
+              className="text-xs text-[var(--text-secondary)]"
               style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
             >
-              06
+              07
             </span>
             <h2
-              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[#16140F]"
+              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
@@ -36,7 +36,7 @@ export default function AchievementsSection({ reducedMotion }: Props) {
 
           {/* Right */}
           <div className="lg:col-span-8">
-            <div className="divide-y divide-[#D9D3C4] border-t border-[#D9D3C4]">
+            <div className="divide-y divide-[var(--border-subtle)] border-t border-[var(--border-subtle)]">
               {ACHIEVEMENTS.map((item) => (
                 <div
                   key={item.title}
@@ -44,13 +44,13 @@ export default function AchievementsSection({ reducedMotion }: Props) {
                 >
                   <div className="sm:col-span-8">
                     <p
-                      className="text-base text-[#16140F]"
+                      className="text-base text-[var(--text-primary)]"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {item.title}
                     </p>
                     <p
-                      className="mt-1 text-sm text-[#6B665B]"
+                      className="mt-1 text-sm text-[var(--text-secondary)]"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {item.organization}
@@ -58,7 +58,7 @@ export default function AchievementsSection({ reducedMotion }: Props) {
                   </div>
                   <div className="sm:col-span-4 sm:text-right">
                     <span
-                      className="text-sm text-[#C8431D]"
+                      className="text-sm text-[var(--accent-yellow)]"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {item.tag}

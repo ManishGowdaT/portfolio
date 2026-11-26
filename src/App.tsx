@@ -5,26 +5,30 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import HomeIntroSection from './components/HomeIntroSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
+import FeaturedCaseStudiesSection from './components/FeaturedCaseStudiesSection';
 import ProjectsSection from './components/ProjectsSection';
 import AchievementsSection from './components/AchievementsSection';
 import EducationSection from './components/EducationSection';
 import ContactSection from './components/ContactSection';
+import SiteFooter from './components/SiteFooter';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
+import { resolvePortfolioRoute } from './routing/portfolioRoutes';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const SECTION_IDS = [
-  'hero', 'about', 'skills', 'experience',
-  'projects', 'achievements', 'education', 'contact',
-];
 
 export default function App() {
   const reducedMotion = usePrefersReducedMotion();
   const lenisRef = useRef<Lenis | null>(null);
-  const [activeSection, setActiveSection] = useState('hero');  /* ── Lenis smooth scroll ── */
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
+  const [currentRoute, setCurrentRoute] = useState(() =>
+    resolvePortfolioRoute(window.location.pathname, window.location.hash),
+  );
+
+  /* ── Lenis smooth scroll ── */
   useEffect(() => {
     if (reducedMotion) return;
 
@@ -54,23 +58,6 @@ export default function App() {
     };
   }, [reducedMotion]);
 
-  /* ── Active section tracking ── */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        }
-      },
-      { rootMargin: '-35% 0px -55% 0px' },
-    );
-    for (const id of SECTION_IDS) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-    return () => observer.disconnect();
-  }, []);
-
   /* ── Programmatic scroll ── */
   const scrollToSection = useCallback((id: string) => {
     const target = document.getElementById(id);
@@ -80,6 +67,43 @@ export default function App() {
     } else {
       target.scrollIntoView({ behavior: 'smooth' });
     }
+  }, []);
+
+  /* ── Direct routes and browser history ── */
+  const syncRoute = useCallback(() => {
+    const pathname = window.location.pathname;
+    const nextRoute = resolvePortfolioRoute(pathname, window.location.hash);
+    setCurrentPath(pathname);
+    setCurrentRoute(nextRoute);
+
+    if (nextRoute.sectionId) {
+      requestAnimationFrame(() => {
+        document.getElementById(nextRoute.sectionId!)?.scrollIntoView({ behavior: 'auto' });
+      });
+    } else if (pathname !== '/' || !window.location.hash) {
+      requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+    }
+  }, []);
+
+  const navigateToPath = useCallback((path: string) => {
+    if (window.location.pathname !== path || window.location.hash) {
+      window.history.pushState(null, '', path);
+    }
+    syncRoute();
+  }, [syncRoute]);
+
+  useEffect(() => {
+    window.addEventListener('popstate', syncRoute);
+    window.addEventListener('hashchange', syncRoute);
+    if (currentRoute.sectionId) {
+      requestAnimationFrame(() => {
+        document.getElementById(currentRoute.sectionId!)?.scrollIntoView({ behavior: 'auto' });
+      });
+    }
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+      window.removeEventListener('hashchange', syncRoute);
+    };
   }, []);
 
   /* ── Lock scroll when modal is open ── */
@@ -92,40 +116,53 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="overflow-x-clip bg-[#F3EFE7] text-[#16140F]">
+      <div className="site-shell overflow-x-clip">
         <a
           href="#main-content"
-          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[#E4572E] px-4 py-2 text-sm font-medium text-white focus:not-sr-only"
+          className="sr-only fixed top-3 left-3 z-[60] rounded bg-[var(--accent-primary)] px-4 py-2 text-sm font-medium text-white focus:not-sr-only"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           Skip to main content
         </a>
 
-        <Navbar activeSection={activeSection} onNavigate={scrollToSection} />
+        <Navbar currentPath={currentPath} onNavigate={navigateToPath} />
 
         <main id="main-content" tabIndex={-1}>
-          <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
-          <AboutSection reducedMotion={reducedMotion} />
-          <SkillsSection reducedMotion={reducedMotion} />
-          <ExperienceSection reducedMotion={reducedMotion} />
-          <ProjectsSection
-            reducedMotion={reducedMotion}
-            onModalStateChange={handleModalStateChange}
-          />
-          <AchievementsSection reducedMotion={reducedMotion} />
-          <EducationSection reducedMotion={reducedMotion} />
-          <ContactSection reducedMotion={reducedMotion} />
+          {currentRoute.notFound ? (
+            <section className="route-message">
+              <p className="route-code">404</p>
+              <h1>Page not found</h1>
+              <p>This address doesn’t match a page in Manish’s portfolio.</p>
+              <a href="/">Return to home <span aria-hidden="true">↗</span></a>
+            </section>
+          ) : (
+            <>
+              <HeroSection reducedMotion={reducedMotion} onNavigate={scrollToSection} />
+              <HomeIntroSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
+              <AboutSection reducedMotion={reducedMotion} />
+              <SkillsSection reducedMotion={reducedMotion} />
+              <ExperienceSection reducedMotion={reducedMotion} />
+              <FeaturedCaseStudiesSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
+              <ProjectsSection
+                reducedMotion={reducedMotion}
+                onModalStateChange={handleModalStateChange}
+                routeProjectId={currentRoute.projectId}
+                onRouteModalClose={() => {
+                  if (currentRoute.projectId) {
+                    window.history.replaceState(null, '', '/CaseStudies');
+                    setCurrentPath('/CaseStudies');
+                    setCurrentRoute(resolvePortfolioRoute('/CaseStudies'));
+                  }
+                }}
+              />
+              <AchievementsSection reducedMotion={reducedMotion} />
+              <EducationSection reducedMotion={reducedMotion} />
+              <ContactSection reducedMotion={reducedMotion} />
+            </>
+          )}
         </main>
 
-        <footer
-          className="border-t border-[#D9D3C4] py-7"
-          style={{ fontFamily: 'var(--font-sans)' }}
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 text-xs text-[#6B665B] sm:px-8 lg:px-12">
-            <span>© {new Date().getFullYear()} Manish Gowda T</span>
-            <span>Bengaluru, India</span>
-          </div>
-        </footer>
+        <SiteFooter onNavigate={navigateToPath} />
       </div>
     </MotionConfig>
   );

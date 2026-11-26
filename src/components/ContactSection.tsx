@@ -21,22 +21,22 @@ export default function ContactSection({ reducedMotion }: Props) {
   };
 
   return (
-    <section ref={ref} id="contact" className="bg-[#F3EFE7]">
+    <section ref={ref} id="contact" className="bg-[var(--page-background)]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <hr className="rule" />
 
         <div className="py-24 sm:py-32">
           {/* Index */}
           <span
-            className="reveal-item block text-xs text-[#6B665B]"
+            className="reveal-item block text-xs text-[var(--text-secondary)]"
             style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
           >
-            08
+            09
           </span>
 
           {/* Headline */}
           <h2
-            className="reveal-item mt-3 max-w-3xl font-light leading-[1.05] tracking-[-0.03em] text-[#16140F]"
+            className="reveal-item mt-3 max-w-3xl font-light leading-[1.05] tracking-[-0.03em] text-[var(--text-primary)]"
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.75rem, 6vw, 5.5rem)',
@@ -50,7 +50,7 @@ export default function ContactSection({ reducedMotion }: Props) {
           <div className="reveal-item mt-10">
             <a
               href={`mailto:${PROFILE.email}`}
-              className="group inline-block font-light leading-tight tracking-tight text-[#E4572E] underline underline-offset-4 decoration-[#E4572E]/40 transition-all duration-200 hover:decoration-[#E4572E]"
+              className="group inline-block font-light leading-tight tracking-tight text-[var(--accent-primary)] underline underline-offset-4 decoration-[var(--accent-primary)]/40 transition-all duration-200 hover:decoration-[var(--accent-primary)]"
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(1.25rem, 3vw, 2.25rem)',
@@ -63,11 +63,11 @@ export default function ContactSection({ reducedMotion }: Props) {
               type="button"
               onClick={copyEmail}
               aria-label="Copy email address"
-              className="ml-4 inline-flex items-center gap-1.5 align-middle text-xs text-[#6B665B] transition-colors hover:text-[#16140F]"
+              className="ml-4 inline-flex items-center gap-1.5 align-middle text-xs text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {copied ? (
-                <><Check className="h-3.5 w-3.5 text-[#C8431D]" /><span>Copied</span></>
+                <><Check className="h-3.5 w-3.5 text-[var(--accent-yellow)]" /><span>Copied</span></>
               ) : (
                 <><Copy className="h-3.5 w-3.5" /><span>Copy</span></>
               )}
@@ -83,7 +83,7 @@ export default function ContactSection({ reducedMotion }: Props) {
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="nav-link text-sm text-[#6B665B] transition-colors hover:text-[#16140F]"
+              className="nav-link text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
             >
               GitHub
             </a>
@@ -91,13 +91,13 @@ export default function ContactSection({ reducedMotion }: Props) {
               href={PROFILE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="nav-link text-sm text-[#6B665B] transition-colors hover:text-[#16140F]"
+              className="nav-link text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
             >
               LinkedIn
             </a>
             <a
               href={`tel:${PROFILE.phone.replace(/\s+/g, '')}`}
-              className="text-sm text-[#6B665B] transition-colors hover:text-[#16140F]"
+              className="text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
             >
               {PROFILE.phone}
             </a>
