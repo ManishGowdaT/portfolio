@@ -4,7 +4,7 @@ import { useSectionReveal } from '../hooks/useSectionReveal';
 
 interface Props { reducedMotion: boolean; sectionIndex?: string; }
 
-export default function AchievementsSection({ reducedMotion, sectionIndex = '07' }: Props) {
+export default function AchievementsSection({ reducedMotion, sectionIndex = '06' }: Props) {
   const ref = useRef<HTMLElement>(null);
   useSectionReveal(ref, { reducedMotion });
 
@@ -55,6 +55,7 @@ export default function AchievementsSection({ reducedMotion, sectionIndex = '07'
                     >
                       {item.organization}
                     </p>
+                    <p className="achievement-detail">{item.detail}</p>
                   </div>
                   <div className="sm:col-span-4 sm:text-right">
                     <span

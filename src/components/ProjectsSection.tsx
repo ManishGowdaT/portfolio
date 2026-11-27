@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, ArrowUpRight, CheckCircle2, Shield, Layers } from 'lucide-react';
 import { PROJECTS, ProjectItem, PROFILE } from '../data/portfolioData';
 import { useSectionReveal } from '../hooks/useSectionReveal';
-import { getCaseStudyPath } from '../routing/portfolioRoutes';
+import { getProjectPath } from '../routing/portfolioRoutes';
 import ProjectArtwork from './ProjectArtwork';
 
 /* ── Placeholder image block ───────────────────────────────────── */
@@ -224,7 +224,7 @@ function ProjectRow({
   onNavigate: (path: string) => void;
   expanded?: boolean;
 }) {
-  const path = getCaseStudyPath(project.id);
+  const path = getProjectPath(project.id);
   const followCaseStudy = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
@@ -240,7 +240,7 @@ function ProjectRow({
         type="button"
         onClick={() => onOpen(project)}
         className="w-full border-b border-[rgba(121,11,19,0.12)] py-8 text-left transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-red)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--brand-cream)]"
-        aria-label={`View ${project.title} case study`}
+        aria-label={`View ${project.title} project details`}
       >
         <div className={`project-row-grid grid items-start gap-6 sm:grid-cols-12${expanded ? ' project-row-expanded' : ''}`}>
           {/* Index */}
@@ -297,7 +297,7 @@ function ProjectRow({
       </button>
       {expanded && (
         <a className="project-detail-link" href={path} onClick={followCaseStudy}>
-          View case study <ArrowUpRight aria-hidden="true" />
+          View project details <ArrowUpRight aria-hidden="true" />
         </a>
       )}
     </motion.div>
@@ -310,8 +310,6 @@ interface Props {
   onNavigate: (path: string) => void;
   standalone?: boolean;
   onModalStateChange?: (open: boolean) => void;
-  routeProjectId?: string | null;
-  onRouteModalClose?: () => void;
 }
 
 export default function ProjectsSection({
@@ -319,20 +317,10 @@ export default function ProjectsSection({
   onNavigate,
   standalone = false,
   onModalStateChange,
-  routeProjectId = null,
-  onRouteModalClose,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
   const [selected, setSelected] = useState<ProjectItem | null>(null);
   useSectionReveal(ref, { reducedMotion });
-
-  useEffect(() => {
-    const project = routeProjectId
-      ? PROJECTS.find((candidate) => candidate.id === routeProjectId) ?? null
-      : null;
-    setSelected(project);
-    onModalStateChange?.(Boolean(project));
-  }, [routeProjectId, onModalStateChange]);
 
   const open = (p: ProjectItem) => {
     setSelected(p);
@@ -341,7 +329,6 @@ export default function ProjectsSection({
   const close = () => {
     setSelected(null);
     onModalStateChange?.(false);
-    onRouteModalClose?.();
   };
 
   return (
@@ -364,7 +351,7 @@ export default function ProjectsSection({
                 fontWeight: 300,
               }}
             >
-              My Projects
+              Projects
             </h2>
           </div>
           <p
@@ -373,7 +360,7 @@ export default function ProjectsSection({
           >
             {standalone
               ? 'Explore the systems, technology choices, and implementation details behind each project.'
-              : 'Click any project to view architecture, security controls, and implementation details.'}
+              : 'Select a project to review its system design, implementation, and reliability considerations.'}
           </p>
         </div>
 

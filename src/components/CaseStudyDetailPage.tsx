@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, Shield } from 'lucide-react';
 import { PROJECTS, PROFILE } from '../data/portfolioData';
-import { getCaseStudyPath } from '../routing/portfolioRoutes';
+import { getProjectPath } from '../routing/portfolioRoutes';
 
 interface Props {
   projectId: string;
@@ -23,8 +23,8 @@ export default function CaseStudyDetailPage({ projectId, onNavigate }: Props) {
   return (
     <div id="case-study-detail" className="case-study-detail-page">
       <header className="case-study-detail-hero">
-        <a className="case-study-back" href="/CaseStudies" onClick={(event) => followRoute(event, '/CaseStudies', onNavigate)}>
-          <ArrowLeft aria-hidden="true" /> All case studies
+        <a className="case-study-back" href="/Projects" onClick={(event) => followRoute(event, '/Projects', onNavigate)}>
+          <ArrowLeft aria-hidden="true" /> All projects
         </a>
         <div className="case-study-detail-meta">
           <span>{project.index} / {String(PROJECTS.length).padStart(2, '0')}</span>
@@ -80,16 +80,16 @@ export default function CaseStudyDetailPage({ projectId, onNavigate }: Props) {
         <a href={`mailto:${PROFILE.email}`}>Contact me <ArrowUpRight aria-hidden="true" /></a>
       </section>
 
-      <nav className="case-study-related" aria-label="Related case studies">
-        <p>More case studies</p>
+      <nav className="case-study-related" aria-label="Related projects">
+        <p>More projects</p>
         <div>
           {relatedProjects.map((item) => {
-            const path = getCaseStudyPath(item.id);
+            const path = getProjectPath(item.id);
             return <a key={item.id} href={path} onClick={(event) => followRoute(event, path, onNavigate)}>{item.title}<ArrowUpRight aria-hidden="true" /></a>;
           })}
         </div>
-        <a className="case-study-back-bottom" href="/CaseStudies" onClick={(event) => followRoute(event, '/CaseStudies', onNavigate)}>
-          <ArrowLeft aria-hidden="true" /> Back to all case studies
+        <a className="case-study-back-bottom" href="/Projects" onClick={(event) => followRoute(event, '/Projects', onNavigate)}>
+          <ArrowLeft aria-hidden="true" /> Back to all projects
         </a>
       </nav>
     </div>

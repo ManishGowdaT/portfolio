@@ -18,7 +18,7 @@ export default function ProjectArtwork({ project, compact = false }: { project: 
           {index < stages.length - 1 && <span className="project-artwork-connector" aria-hidden="true" />}
         </div>)}
       </div>
-      <div className="project-artwork-foot"><span>{project.stack.slice(0, 3).join(' / ')}</span><span>CONCEPT VIEW</span></div>
+      <div className="project-artwork-foot"><span>{project.stack.slice(0, 3).join(' / ')}</span><span>WORKFLOW OVERVIEW</span></div>
     </div>
   );
 }

@@ -35,11 +35,11 @@ export default function SiteFooter({ onNavigate }: SiteFooterProps) {
             </a>
           </div>
           <a
-            href="/CaseStudies"
-            onClick={(event) => followRoute(event, '/CaseStudies', onNavigate)}
+            href="/Projects"
+            onClick={(event) => followRoute(event, '/Projects', onNavigate)}
             className="footer-study-link"
           >
-            <span>Explore projects and case studies</span>
+            <span>Explore selected projects</span>
             <ArrowUpRight aria-hidden="true" />
           </a>
         </div>

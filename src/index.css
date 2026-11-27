@@ -1320,6 +1320,201 @@
   }
 }
 
+/* Skills and experience use explicit structure instead of undifferentiated text rows. */
+.skills-section {
+  background: color-mix(in srgb, var(--brand-cream) 90%, var(--brand-gold));
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.skills-section-inner,
+.experience-section-inner {
+  width: min(100% - 2.5rem, 80rem);
+  margin-inline: auto;
+}
+
+.skills-section-heading,
+.experience-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.55fr);
+  align-items: end;
+  gap: 1.5rem 3rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1.75rem;
+}
+
+.skills-section-heading > div > span,
+.experience-section-heading > div > span {
+  color: var(--accent-yellow);
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+}
+
+.skills-section-heading h2,
+.experience-section-heading h2 {
+  margin: 0.65rem 0 0;
+  color: var(--text-primary);
+  font-size: clamp(2.35rem, 5.2vw, 4.3rem);
+  font-weight: 550;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.skills-section-heading > p,
+.experience-section-heading > p {
+  max-width: 31rem;
+  margin: 0 0 0.15rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.skills-grid {
+  display: grid;
+  margin-top: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.skill-card {
+  min-width: 0;
+  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--brand-cream) 96%, white);
+  padding: 1.35rem;
+}
+
+.skill-card:nth-child(2) { grid-column: span 2; }
+
+.skill-card-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.9rem;
+}
+
+.skill-card-heading > span { color: var(--accent-yellow); font-size: 0.66rem; }
+.skill-card-heading h3 { margin: 0; color: var(--text-primary); font-size: 1rem; font-weight: 550; }
+
+.skill-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-card li {
+  border: 1px solid rgba(121, 11, 19, 0.14);
+  border-radius: 999px;
+  padding: 0.4rem 0.65rem;
+  color: var(--text-secondary);
+  font-size: 0.73rem;
+  line-height: 1.25;
+}
+
+.experience-section {
+  background: var(--page-background);
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.experience-card {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.experience-card-top {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.experience-company-mark {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  border: 1px solid var(--border-subtle);
+  background: var(--brand-cream);
+  color: var(--brand-red);
+}
+
+.experience-company-mark svg { width: 1.2rem; height: 1.2rem; }
+.experience-company { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; margin: 0; color: var(--text-secondary); font-size: 0.78rem; }
+.experience-company span { color: var(--accent-yellow); }
+.experience-role-block h3 { margin: 0.35rem 0 0; color: var(--text-primary); font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 550; letter-spacing: -0.04em; }
+.experience-period { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border-subtle); border-radius: 999px; padding: 0.45rem 0.7rem; color: var(--text-secondary); font-size: 0.74rem; }
+.experience-period i { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: #4f7655; }
+.experience-summary { max-width: 70ch; margin: 1.5rem 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
+.experience-responsibilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--border-subtle); }
+.experience-responsibility { display: flex; flex-direction: column; gap: 1rem; border-right: 1px solid var(--border-subtle); padding: 1.25rem 1rem 0 0; }
+.experience-responsibility + .experience-responsibility { padding-left: 1rem; }
+.experience-responsibility:last-child { border-right: 0; padding-right: 0; }
+.experience-responsibility > span { color: var(--accent-yellow); font-size: 0.68rem; }
+.experience-responsibility h4 { margin: 0; color: var(--text-primary); font-size: 0.88rem; font-weight: 550; line-height: 1.45; }
+.experience-responsibility p { margin: 0.55rem 0 0; color: var(--text-secondary); font-size: 0.78rem; line-height: 1.65; }
+
+.achievement-detail { max-width: 62ch; margin: 0.65rem 0 0; color: var(--text-secondary); font-size: 0.82rem; line-height: 1.55; }
+
+.education-section { background: color-mix(in srgb, var(--brand-cream) 90%, var(--brand-red)); padding-block: clamp(4rem, 8vw, 7rem); }
+.education-section-inner { width: min(100% - 2.5rem, 80rem); margin-inline: auto; }
+.education-section-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.55fr); align-items: end; gap: 1.5rem 3rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.5rem; }
+.education-section-heading > div > span { color: var(--accent-yellow); font-size: 0.7rem; letter-spacing: 0.13em; }
+.education-section-heading h2 { margin: 0.65rem 0 0; color: var(--text-primary); font-size: clamp(2.3rem, 5vw, 4.1rem); font-weight: 550; letter-spacing: -0.06em; line-height: 0.98; }
+.education-section-heading > p { margin: 0 0 0.15rem; color: var(--text-secondary); font-size: 0.9rem; }
+.education-list { display: grid; gap: 0.75rem; margin-top: 1.25rem; }
+.education-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 1rem; border: 1px solid var(--border-subtle); background: var(--brand-cream); padding: 1.2rem; }
+.education-item-index { color: var(--accent-yellow); font-size: 0.68rem; }
+.education-item-main h3 { margin: 0; color: var(--text-primary); font-size: 0.98rem; font-weight: 550; }
+.education-item-main p { margin: 0.35rem 0 0; color: var(--text-secondary); font-size: 0.8rem; }
+.education-item-period, .education-item-metric { color: var(--text-secondary); font-size: 0.78rem; white-space: nowrap; }
+.education-item-metric { border-left: 1px solid var(--border-subtle); padding-left: 1rem; color: var(--brand-red); }
+.certifications-block { margin-top: 2rem; }
+.certifications-block > h3 { margin: 0 0 0.85rem; color: var(--text-primary); font-size: 0.9rem; font-weight: 550; }
+.certification-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.certification-item { display: flex; min-height: 3.5rem; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid var(--border-subtle); padding: 0.9rem 1rem; }
+.certification-item span:first-child { color: var(--text-primary); font-size: 0.82rem; }
+.certification-item span:last-child { color: var(--text-secondary); font-size: 0.74rem; text-align: right; }
+
+.featured-projects-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; }
+.featured-projects-intro a { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--brand-red); font-size: 0.82rem; text-decoration: none; }
+.featured-projects-intro a:hover { color: var(--brand-gold); }
+.featured-projects-intro a svg { width: 0.95rem; height: 0.95rem; }
+
+@media (max-width: 700px) {
+  .education-section-inner { width: calc(100% - 2rem); }
+  .education-section-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .education-item { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+  .education-item-period { grid-column: 2; }
+  .education-item-metric { grid-column: 2; border-left: 0; padding-left: 0; }
+  .certification-list { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (min-width: 701px) and (max-width: 1023px) {
+  .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skill-card:nth-child(2) { grid-column: span 1; }
+}
+
+@media (max-width: 700px) {
+  .skills-section-inner,
+  .experience-section-inner { width: calc(100% - 2rem); }
+  .skills-section-heading,
+  .experience-section-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .skills-grid { grid-template-columns: minmax(0, 1fr); }
+  .skill-card:nth-child(2) { grid-column: auto; }
+  .experience-card-top { grid-template-columns: auto minmax(0, 1fr); }
+  .experience-period { grid-column: 2; justify-self: start; }
+  .experience-summary { margin-block: 1.25rem; }
+  .experience-responsibilities { grid-template-columns: minmax(0, 1fr); }
+  .experience-responsibility,
+  .experience-responsibility + .experience-responsibility,
+  .experience-responsibility:last-child { border-right: 0; border-bottom: 1px solid var(--border-subtle); padding: 1rem 0; }
+  .experience-responsibility:last-child { border-bottom: 0; }
+}
+
 @media (max-width: 1023px) {
   .site-header {
     border-bottom-color: var(--border-subtle);
@@ -1436,25 +1631,12 @@
   }
 }
 
-.case-studies-page,
 .case-study-detail-page,
 .contact-page {
   width: min(100% - 2.5rem, 80rem);
   margin-inline: auto;
 }
 
-.case-studies-page { padding-block: clamp(8rem, 16vh, 11rem) 6rem; }
-
-.case-studies-page-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.55fr);
-  align-items: end;
-  gap: 1.5rem 3rem;
-  border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: 2.25rem;
-}
-
-.case-studies-page-heading > p:first-child,
 .case-study-detail-meta,
 .contact-page-heading > p:first-child {
   display: flex;
@@ -1466,9 +1648,6 @@
   text-transform: uppercase;
 }
 
-.case-studies-page-heading > p:first-child { grid-column: 1 / -1; max-width: 13rem; }
-
-.case-studies-page-heading h1,
 .contact-page-heading h1 {
   margin: 0;
   color: var(--text-primary);
@@ -1478,57 +1657,12 @@
   line-height: 0.95;
 }
 
-.case-studies-page-heading > div p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.65;
-}
-
-.case-studies-page-heading > div p + p { margin-top: 0.6rem; font-size: 0.75rem; }
-
-.case-study-list-card {
-  display: grid;
-  grid-template-columns: minmax(9rem, 0.26fr) minmax(0, 1fr) auto;
-  align-items: start;
-  gap: clamp(1rem, 4vw, 4rem);
-  border-bottom: 1px solid var(--border-subtle);
-  padding-block: clamp(2rem, 5vw, 4rem);
-  transition: background-color 0.25s ease;
-}
-
-.case-study-list-card:hover { background: linear-gradient(90deg, transparent, rgba(121, 11, 19, 0.025)); }
-
-.case-study-list-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  color: var(--text-secondary);
-  font-size: 0.72rem;
-}
-
-.case-study-list-meta span:first-child { color: var(--accent-yellow); letter-spacing: 0.1em; }
-
-.case-study-list-main h2 {
-  margin: 0;
-  font-size: clamp(1.75rem, 4vw, 3.4rem);
-  font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 1.05;
-}
-
-.case-study-list-subtitle { margin: 0.65rem 0 0; color: var(--accent-teal); font-size: 0.9rem; }
-.case-study-list-summary { max-width: 62ch; margin: 1.2rem 0 0; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
-
-.case-study-list-tags,
 .case-study-detail-stack {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.case-study-list-tags { margin-top: 1.4rem; }
-.case-study-list-tags span,
 .case-study-detail-stack span {
   border: 1px solid var(--border-subtle);
   border-radius: 999px;
@@ -1537,7 +1671,6 @@
   font-size: 0.7rem;
 }
 
-.case-study-list-card > a,
 .case-study-back,
 .case-study-detail-cta > a,
 .case-study-related a {
@@ -1549,8 +1682,6 @@
   text-decoration: none;
 }
 
-.case-study-list-card > a { align-self: center; white-space: nowrap; }
-.case-study-list-card > a svg,
 .case-study-back svg,
 .case-study-detail-cta svg,
 .case-study-related svg { width: 1rem; height: 1rem; }
@@ -1640,12 +1771,7 @@
 .contact-page-note { margin-top: 1rem; color: var(--text-secondary); font-size: 0.75rem; }
 
 @media (max-width: 700px) {
-  .case-studies-page, .case-study-detail-page, .contact-page { width: calc(100% - 2rem); }
-  .case-studies-page-heading { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-  .case-studies-page-heading > div { max-width: 38rem; }
-  .case-study-list-card { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-  .case-study-list-meta { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
-  .case-study-list-card > a { justify-self: start; }
+  .case-study-detail-page, .contact-page { width: calc(100% - 2rem); }
   .case-study-detail-section { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   .case-study-reliability-list, .case-study-related > div { grid-template-columns: minmax(0, 1fr); }
   .case-study-detail-cta { align-items: flex-start; flex-direction: column; }

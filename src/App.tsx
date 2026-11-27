@@ -5,7 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import AboutPage from './components/AboutPage';
-import CaseStudiesPage from './components/CaseStudiesPage';
 import CaseStudyDetailPage from './components/CaseStudyDetailPage';
 import ContactPage from './components/ContactPage';
 import HeroSection from './components/HeroSection';
@@ -13,7 +12,7 @@ import HomeIntroSection from './components/HomeIntroSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
-import FeaturedCaseStudiesSection from './components/FeaturedCaseStudiesSection';
+import FeaturedProjectsSection from './components/FeaturedProjectsSection';
 import ProjectsSection from './components/ProjectsSection';
 import AchievementsSection from './components/AchievementsSection';
 import EducationSection from './components/EducationSection';
@@ -33,7 +32,6 @@ export default function App() {
   );
   const isAboutPage = currentPath.replace(/\/+$/, '') === '/AboutMe';
   const isProjectsPage = currentPath.replace(/\/+$/, '') === '/Projects';
-  const isCaseStudiesPage = currentPath.replace(/\/+$/, '') === '/CaseStudies';
   const isContactPage = currentPath.replace(/\/+$/, '') === '/ContactMe';
 
   /* ── Lenis smooth scroll ── */
@@ -153,8 +151,6 @@ export default function App() {
                 standalone
                 onModalStateChange={handleModalStateChange}
               />
-            ) : isCaseStudiesPage ? (
-              <CaseStudiesPage onNavigate={navigateToPath} />
             ) : currentRoute.projectId ? (
               <CaseStudyDetailPage projectId={currentRoute.projectId} onNavigate={navigateToPath} />
             ) : isContactPage ? (
@@ -166,20 +162,7 @@ export default function App() {
               <AboutSection reducedMotion={reducedMotion} />
               <SkillsSection reducedMotion={reducedMotion} />
               <ExperienceSection reducedMotion={reducedMotion} />
-              <FeaturedCaseStudiesSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
-              <ProjectsSection
-                reducedMotion={reducedMotion}
-                onNavigate={navigateToPath}
-                onModalStateChange={handleModalStateChange}
-                routeProjectId={currentRoute.projectId}
-                onRouteModalClose={() => {
-                  if (currentRoute.projectId) {
-                    window.history.replaceState(null, '', '/CaseStudies');
-                    setCurrentPath('/CaseStudies');
-                    setCurrentRoute(resolvePortfolioRoute('/CaseStudies'));
-                  }
-                }}
-              />
+              <FeaturedProjectsSection reducedMotion={reducedMotion} onNavigate={navigateToPath} />
               <AchievementsSection reducedMotion={reducedMotion} />
               <EducationSection reducedMotion={reducedMotion} />
               <ContactSection reducedMotion={reducedMotion} />

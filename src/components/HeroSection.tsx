@@ -90,8 +90,8 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
         className="hero-bottom hero-line"
       >
         <a
-          href="#case-studies"
-          onClick={(event) => goTo(event, 'case-studies')}
+          href="#projects"
+          onClick={(event) => goTo(event, 'projects')}
           className="hero-explore-link"
         >
           <ArrowDown aria-hidden="true" />

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, BookOpen, BriefcaseBusiness, House, Mail, Menu, UserRound, X } from 'lucide-react';
+import { ArrowUpRight, BriefcaseBusiness, House, Mail, Menu, UserRound, X } from 'lucide-react';
 import { getActiveNavigationId, NAV_ITEMS } from '../routing/navigation';
 
 interface NavbarProps {
@@ -9,7 +9,6 @@ interface NavbarProps {
 
 const NAV_ICONS = {
   home: House,
-  caseStudies: BookOpen,
   projects: BriefcaseBusiness,
   about: UserRound,
   contact: Mail,

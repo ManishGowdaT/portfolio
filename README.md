@@ -13,10 +13,10 @@ A bespoke, editorial-inspired personal portfolio website for **Manish Gowda T**,
 ## Sections
 
 1. **Hero**: Personal introduction with role, location, summary, and direct links to projects and contact.
-2. **About**: Engineering philosophy, background summary, and 4 primary focus areas.
-3. **Skills**: Quiet hairline-divided text rows grouped by Languages, Backend, Frontend, Databases, and Tools.
+2. **About**: Engineering focus, professional summary, and three areas of interest.
+3. **Skills**: Technical skills grouped by Languages, Backend & APIs, Frontend, Databases, and Tools & Systems.
 4. **Experience**: Professional experience at Ellipsonic with role details and responsibilities.
-5. **Projects**: Editorial rows for **OptionAlgo**, **LexDraft**, and **Sales Forecasting System**, with project workflow illustrations and case study links.
+5. **Projects**: Project summaries and detail pages for **OptionAlgo**, **LexDraft**, and **Sales Forecasting System**, with workflow illustrations.
 6. **Achievements**: Hackathon, design competition, and innovation program achievements.
 7. **Education**: B.E. in Information Science & Engineering, pre-university education, and certifications.
 8. **Contact**: Prominent *"Let's build something together."* invitation with email, GitHub, LinkedIn, and phone links.
@@ -27,7 +27,7 @@ A bespoke, editorial-inspired personal portfolio website for **Manish Gowda T**,
 - **Tailwind CSS v4** (`@tailwindcss/vite`)
 - **GSAP + ScrollTrigger** (reveal choreographies & hero mask wipes)
 - **Lenis** (smooth inertial scrolling, disabled on touch/reduced-motion)
-- **Framer Motion** (layout transitions for project case studies)
+- **Framer Motion** (project detail transitions)
 - **Lucide Icons**
 
 ## Getting Started

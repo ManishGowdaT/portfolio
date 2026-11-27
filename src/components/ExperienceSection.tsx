@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { BriefcaseBusiness } from 'lucide-react';
 import { EXPERIENCE } from '../data/portfolioData';
 import { useSectionReveal } from '../hooks/useSectionReveal';
 
@@ -9,95 +10,34 @@ export default function ExperienceSection({ reducedMotion, sectionIndex = '04' }
   useSectionReveal(ref, { reducedMotion });
 
   return (
-    <section ref={ref} id="experience" className="bg-[var(--page-background)]">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <hr className="rule" />
+    <section ref={ref} id="experience" className="experience-section">
+      <div className="experience-section-inner">
+        <header className="experience-section-heading reveal-item">
+          <div><span>{sectionIndex} / EXPERIENCE</span><h2>Professional Experience</h2></div>
+          <p>Hands-on work across frontend development, API engineering, and applied AI/ML services.</p>
+        </header>
 
-        <div className="grid gap-10 py-24 sm:py-32 lg:grid-cols-12">
-          {/* Left */}
-          <div className="reveal-item lg:col-span-4">
-            <span
-              className="text-xs text-[var(--text-secondary)]"
-              style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
-            >
-              {sectionIndex}
-            </span>
-            <h2
-              className="mt-3 font-light leading-[1.0] tracking-[-0.025em] text-[var(--text-primary)]"
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
-                fontWeight: 300,
-              }}
-            >
-              Experience
-            </h2>
-          </div>
-
-          {/* Right */}
-          <div className="lg:col-span-8">
-            {EXPERIENCE.map((item) => (
-              <article key={`${item.company}-${item.role}`} className="reveal-item">
-                {/* Role row */}
-                <div
-                  className="flex flex-col gap-1 border-t border-[var(--border-subtle)] pt-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
-                >
-                  <div>
-                    <h3
-                      className="text-xl font-light tracking-tight text-[var(--text-primary)] sm:text-2xl"
-                      style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}
-                    >
-                      {item.role} · {item.company}
-                    </h3>
-                    <p
-                      className="mt-1 text-sm text-[var(--text-secondary)]"
-                      style={{ fontFamily: 'var(--font-sans)' }}
-                    >
-                      {item.location}
-                    </p>
-                  </div>
-                  <span
-                    className="shrink-0 text-sm text-[var(--accent-yellow)]"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
-                    {item.period}
-                  </span>
+        {EXPERIENCE.map((item) => (
+          <article className="experience-card reveal-item" key={`${item.company}-${item.role}`}>
+            <div className="experience-card-top">
+              <div className="experience-company-mark" aria-hidden="true"><BriefcaseBusiness /></div>
+              <div className="experience-role-block">
+                <p className="experience-company">{item.company}<span>·</span>{item.location}</p>
+                <h3>{item.role}</h3>
+              </div>
+              <span className="experience-period"><i aria-hidden="true" />{item.period}</span>
+            </div>
+            <p className="experience-summary">{item.summary}</p>
+            <div className="experience-responsibilities">
+              {item.responsibilities.map((responsibility, index) => (
+                <div className="experience-responsibility" key={responsibility.title}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div><h4>{responsibility.title}</h4><p>{responsibility.detail}</p></div>
                 </div>
-
-                {/* Summary */}
-                <p
-                  className="mt-5 max-w-[60ch] text-sm leading-relaxed text-[var(--text-secondary)]"
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  {item.summary}
-                </p>
-
-                {/* Responsibilities */}
-                <ul className="mt-6 space-y-4 pb-10">
-                  {item.responsibilities.map((r) => (
-                    <li
-                      key={r.title}
-                      className="grid gap-1 sm:grid-cols-12 sm:gap-4"
-                    >
-                      <span
-                        className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)] sm:col-span-4"
-                        style={{ fontFamily: 'var(--font-sans)' }}
-                      >
-                        {r.title}
-                      </span>
-                      <p
-                        className="text-sm leading-relaxed text-[var(--text-primary)] sm:col-span-8"
-                        style={{ fontFamily: 'var(--font-sans)' }}
-                      >
-                        {r.detail}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
+              ))}
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

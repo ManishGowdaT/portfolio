@@ -41,7 +41,6 @@ export const PROFILE = {
   linkedinLabel: 'linkedin.com/in/manish-gowda-t',
   github: 'https://github.com/ManishGowdaT',
   githubLabel: 'github.com/ManishGowdaT',
-  currentRole: 'Software Developer',
   heroLead:
     'Building reliable full-stack platforms, AI-powered backend workflows, and security-conscious web systems.',
   summary:
@@ -114,17 +113,17 @@ export const EXPERIENCE = [
     period: 'Present',
     location: 'Bengaluru, India',
     summary:
-      'Contributing across frontend interfaces, REST API services, and production-ready AI/ML backend workflows.',
+      'Contribute to frontend features, REST API services, and AI/ML-enabled backend workflows.',
     responsibilities: [
       {
         title: 'Responsive Frontend Engineering',
         detail:
-          'Develop responsive interfaces with React.js and Next.js, focusing on usability, performance, and maintainable component design.',
+          'Develop responsive interfaces with React.js and Next.js, with attention to usability, performance, and maintainable component design.',
       },
       {
         title: 'Python & Django REST APIs',
         detail:
-          'Build and support REST APIs with Python and Django REST Framework, including database operations, authentication, and strict input validation.',
+          'Build and support REST APIs with Python and Django REST Framework, including database operations, authentication, and input validation.',
       },
       {
         title: 'AI & ML Service Integration',

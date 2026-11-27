@@ -9,7 +9,7 @@ export interface PortfolioRoute {
 const SECTION_ROUTES: Record<string, string> = {
   '/AboutMe': 'about-page',
   '/Projects': 'projects',
-  '/CaseStudies': 'case-studies',
+  '/CaseStudies': 'projects',
   '/ContactMe': 'contact-page',
 };
 
@@ -25,13 +25,13 @@ const PROJECT_PATHS: Record<string, string> = {
   'sales-forecasting': 'sales-forecasting-system',
 };
 
-export function getCaseStudyPath(projectId: string): string {
+export function getProjectPath(projectId: string): string {
   const slug = PROJECT_PATHS[projectId];
-  return slug ? `/CaseStudies/${slug}` : '/CaseStudies';
+  return slug ? `/Projects/${slug}` : '/Projects';
 }
 
 const SECTION_IDS = new Set([
-  'hero', 'case-studies', 'about', 'skills', 'experience', 'projects', 'achievements', 'education', 'contact',
+  'hero', 'about', 'skills', 'experience', 'projects', 'achievements', 'education', 'contact',
 ]);
 
 export function resolvePortfolioRoute(pathname: string, hash = ''): PortfolioRoute {
@@ -49,7 +49,7 @@ export function resolvePortfolioRoute(pathname: string, hash = ''): PortfolioRou
     return { sectionId: SECTION_ROUTES[normalizedPath], projectId: null, notFound: false };
   }
 
-  const projectMatch = normalizedPath.match(/^\/CaseStudies\/([^/]+)$/);
+  const projectMatch = normalizedPath.match(/^\/(?:Projects|CaseStudies)\/([^/]+)$/);
   if (projectMatch) {
     const projectId = PROJECT_SLUGS[projectMatch[1]];
     const exists = projectId && PROJECTS.some((project) => project.id === projectId);
