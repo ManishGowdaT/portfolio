@@ -251,24 +251,59 @@
 .home-hero {
   position: relative;
   display: flex;
-  min-height: min(52rem, 92svh);
+  min-height: min(56rem, 100svh);
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
   padding: clamp(8rem, 15vh, 11rem) clamp(1.25rem, 7vw, 6rem) 6rem;
-  background: var(--brand-cream);
+  background:
+    radial-gradient(ellipse at 18% 42%, rgba(155, 90, 34, 0.18), transparent 30rem),
+    var(--brand-red);
 }
 
 .hero-grid {
-  display: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 240, 220, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 240, 220, 0.045) 1px, transparent 1px);
+  background-size: clamp(3rem, 7vw, 5.5rem) clamp(3rem, 7vw, 5.5rem);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  pointer-events: none;
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  width: min(100%, 74rem);
+  width: min(100%, 78rem);
   margin: auto;
-  text-align: left;
+  text-align: center;
+}
+
+.hero-intro-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 240, 220, 0.28);
+  border-radius: 999px;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
+  color: var(--brand-cream);
+  font-size: 0.88rem;
+}
+
+.hero-intro-separator { color: var(--brand-gold); }
+
+.hero-avatar {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-cream);
+  color: var(--brand-red);
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .hero-greeting {
@@ -325,33 +360,34 @@
 .hero-title {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(4rem, 12vw, 10rem);
-  font-weight: 550;
-  letter-spacing: -0.085em;
-  line-height: 0.82;
+  font-size: clamp(3.2rem, 11.5vw, 9.5rem);
+  font-weight: 700;
+  letter-spacing: -0.075em;
+  line-height: 0.86;
+  text-transform: uppercase;
 }
 
 .hero-title-first {
-  color: var(--brand-red);
+  color: var(--brand-cream);
 }
 
 .hero-title-second {
   display: inline-block;
   margin-top: 0.1em;
-  color: var(--brand-red);
-  padding-left: 0.13em;
+  background: var(--brand-cream);
+  color: var(--brand-gold);
+  padding: 0.02em 0.12em 0.07em;
 }
 
 .hero-title-period { color: var(--brand-gold); }
-.hero-role { margin: 1.5rem 0 0; color: var(--brand-gold); font-size: 0.9rem; letter-spacing: 0.04em; }
 
 .hero-description-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: clamp(1rem, 4vw, 3.5rem);
   margin-top: clamp(1.5rem, 4vh, 2.75rem);
 }
@@ -359,7 +395,7 @@
 .hero-description {
   max-width: 43rem;
   margin: 0;
-  color: var(--text-primary);
+  color: var(--brand-cream);
   font-size: clamp(1rem, 2vw, 1.4rem);
   font-weight: 500;
   line-height: 1.55;
@@ -405,13 +441,13 @@
   justify-content: space-between;
   gap: 1rem;
   margin-inline: auto;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid rgba(255, 240, 220, 0.25);
   padding-top: 1rem;
 }
 
 .hero-explore-link,
 .hero-social-links a {
-  color: var(--text-primary);
+  color: var(--brand-cream);
   text-decoration: none;
 }
 
@@ -419,7 +455,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: var(--text-secondary);
+  color: rgba(255, 240, 220, 0.8);
   font-size: 0.82rem;
   transition: color 0.2s ease;
 }
@@ -445,7 +481,7 @@
   width: 2.45rem;
   height: 2.45rem;
   place-items: center;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(255, 240, 220, 0.35);
   border-radius: 50%;
   transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
@@ -1343,20 +1379,19 @@
 @media (max-width: 700px) {
   .home-hero { min-height: 88svh; padding: 8.5rem 1.25rem 6rem; }
 
-  .hero-title {
-    font-size: clamp(3.7rem, 18vw, 6rem);
-  }
+  .hero-title { font-size: clamp(2.55rem, 13.2vw, 5.2rem); }
 
   .hero-description-row {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 1rem;
   }
 
   .hero-description {
     max-width: 35rem;
-    color: var(--text-secondary);
+    color: var(--brand-cream);
     font-size: 1.05rem;
+    text-align: center;
   }
 
   .home-intro-inner {

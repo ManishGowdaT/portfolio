@@ -55,21 +55,21 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
       aria-labelledby="hero-title"
       className="home-hero"
     >
+      <div className="hero-grid" aria-hidden="true" />
       <div className="hero-content">
-        <p
-          className="hero-location hero-line"
-        >
-          {PROFILE.location}
-        </p>
+        <div className="hero-intro-line hero-line">
+          <span className="hero-avatar" aria-hidden="true">MG</span>
+          <span>{PROFILE.name}</span>
+          <span className="hero-intro-separator" aria-hidden="true">/</span>
+          <span>{PROFILE.location}</span>
+        </div>
 
         <div className="hero-name-wrap">
           <h1 id="hero-title" className="hero-title">
-            <span className="hero-title-first">Manish</span>
-            <span className="hero-title-second">Gowda T<span className="hero-title-period">.</span></span>
+            <span className="hero-title-first">Software</span>
+            <span className="hero-title-second">Developer<span className="hero-title-period">.</span></span>
           </h1>
         </div>
-
-        <p className="hero-role hero-line">{PROFILE.role}<span aria-hidden="true"> · </span>Full-stack applications and backend systems</p>
 
         <div
           className="hero-description-row hero-line"
@@ -80,7 +80,7 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
             onClick={(event) => goTo(event, 'contact')}
             className="hero-contact-link"
           >
-            <span>Contact me</span>
+            <span>Let’s connect</span>
             <ArrowUpRight aria-hidden="true" />
           </a>
         </div>
