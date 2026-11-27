@@ -28,10 +28,9 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
       );
       gsap.fromTo(
         '.hero-line',
-        { y: 24, opacity: 0 },
+        { y: 24 },
         {
           y: 0,
-          opacity: 1,
           duration: 0.8,
           ease: 'power3.out',
           stagger: 0.08,
@@ -59,7 +58,6 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
       <div className="hero-content">
         <p
           className="hero-location hero-line"
-          style={{ opacity: reducedMotion ? 1 : 0 }}
         >
           {PROFILE.location}
         </p>
@@ -71,11 +69,10 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
           </h1>
         </div>
 
-        <p className="hero-role hero-line" style={{ opacity: reducedMotion ? 1 : 0 }}>{PROFILE.role}<span aria-hidden="true"> · </span>Full-stack applications and backend systems</p>
+        <p className="hero-role hero-line">{PROFILE.role}<span aria-hidden="true"> · </span>Full-stack applications and backend systems</p>
 
         <div
           className="hero-description-row hero-line"
-          style={{ opacity: reducedMotion ? 1 : 0 }}
         >
           <p className="hero-description">{PROFILE.heroLead}</p>
           <a
@@ -91,7 +88,6 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
 
       <div
         className="hero-bottom hero-line"
-        style={{ opacity: reducedMotion ? 1 : 0 }}
       >
         <a
           href="#case-studies"

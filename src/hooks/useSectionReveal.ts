@@ -22,15 +22,7 @@ export function useSectionReveal(
     const root = sectionRef.current;
     if (!root) return;
 
-    if (reducedMotion) {
-      gsap.set(root.querySelectorAll(`${staggerSelector}${clipSelector ? `, ${clipSelector}` : ''}`), {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        clipPath: 'none',
-      });
-      return;
-    }
+    if (reducedMotion) return;
 
     const isTouchDevice =
       typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
@@ -40,10 +32,9 @@ export function useSectionReveal(
       if (items.length > 0) {
         gsap.fromTo(
           items,
-          { y: isTouchDevice ? 14 : 24, opacity: 0 },
+          { y: isTouchDevice ? 14 : 24 },
           {
             y: 0,
-            opacity: 1,
             duration: MOTION_TOKENS.durations.reveal,
             ease: MOTION_TOKENS.easeExpoGsap,
             stagger: MOTION_TOKENS.stagger.card,
@@ -62,10 +53,9 @@ export function useSectionReveal(
         if (clips.length > 0) {
           gsap.fromTo(
             clips,
-            { clipPath: 'inset(0 0 14% 0)', opacity: 0, y: 18 },
+            { clipPath: 'inset(0 0 14% 0)', y: 18 },
             {
               clipPath: 'inset(0 0 0% 0)',
-              opacity: 1,
               y: 0,
               duration: MOTION_TOKENS.durations.handoff,
               ease: MOTION_TOKENS.easeExpoGsap,

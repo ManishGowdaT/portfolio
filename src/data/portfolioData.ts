@@ -109,7 +109,7 @@ export const SKILLS = [
 
 export const EXPERIENCE = [
   {
-    role: 'Developer Intern',
+    role: 'Software Developer',
     company: 'Ellipsonic',
     period: 'Present',
     location: 'Bengaluru, India',

@@ -985,7 +985,7 @@
 
 .site-footer {
   border-top: 0;
-  padding-block: clamp(4rem, 8vw, 7rem) 1.5rem;
+  padding-block: clamp(2.5rem, 5vw, 4rem) 1.25rem;
   font-family: var(--font-sans);
   background: var(--brand-red);
   color: var(--text-primary);
@@ -1002,7 +1002,7 @@
   align-items: end;
   gap: 2rem;
   border-bottom: 1px solid rgba(255, 240, 220, 0.26);
-  padding-bottom: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .footer-eyebrow {
@@ -1071,7 +1071,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem;
-  padding-block: 3rem;
+  padding-block: 2rem;
 }
 
 .footer-column {
