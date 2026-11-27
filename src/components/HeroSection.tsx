@@ -56,31 +56,22 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
       aria-labelledby="hero-title"
       className="home-hero"
     >
-      <div className="hero-grid" aria-hidden="true" />
-
       <div className="hero-content">
-        <div
-          className="hero-greeting hero-line"
-          style={{ opacity: reducedMotion ? 1 : 0 }}
-        >
-          <span className="hero-avatar" aria-hidden="true">MG</span>
-          <span className="hero-greeting-text">Hello, I’m {PROFILE.name}</span>
-        </div>
-
         <p
           className="hero-location hero-line"
           style={{ opacity: reducedMotion ? 1 : 0 }}
         >
-          <span className="hero-location-dot" aria-hidden="true" />
-          Based in {PROFILE.location}
+          {PROFILE.location} <span aria-hidden="true">/</span> {PROFILE.currentRole}
         </p>
 
         <div className="hero-name-wrap">
           <h1 id="hero-title" className="hero-title">
-            <span className="hero-title-first">Full Stack</span>
-            <span className="hero-title-second">Developer</span>
+            <span className="hero-title-first">Manish</span>
+            <span className="hero-title-second">Gowda T<span className="hero-title-period">.</span></span>
           </h1>
         </div>
+
+        <p className="hero-role hero-line" style={{ opacity: reducedMotion ? 1 : 0 }}>{PROFILE.role}<span aria-hidden="true"> · </span>Software engineering</p>
 
         <div
           className="hero-description-row hero-line"
@@ -92,8 +83,7 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
             onClick={(event) => goTo(event, 'contact')}
             className="hero-contact-link"
           >
-            <span className="hero-contact-dot" aria-hidden="true" />
-            <span>Let’s Connect</span>
+            <span>Contact</span>
             <ArrowUpRight aria-hidden="true" />
           </a>
         </div>

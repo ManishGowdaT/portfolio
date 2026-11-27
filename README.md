@@ -4,7 +4,7 @@ A bespoke, editorial-inspired personal portfolio website for **Manish Gowda T**,
 
 ## Visual System
 
-- **Palette**: Deep red `#790B13` and warm cream `#FFF0DC` across every route. Borders, surfaces, and hover states use transparent blends of those two colors.
+- **Palette**: Deep red `#790B13`, warm cream `#FFF0DC`, and muted gold `#9B5A22` for small highlights. The hero and footer use the red background with cream text; other pages use a cream background with red text.
 - **Layout**: Generous whitespace, fine dividers, asymmetric rhythm, and large typographic contrast.
 - **Typography**:
   - Headings: **Inter Tight** with tight tracking

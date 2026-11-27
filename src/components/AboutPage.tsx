@@ -26,9 +26,13 @@ export default function AboutPage({ reducedMotion }: Props) {
               <span>What I do</span><ArrowDown aria-hidden="true" />
             </a>
           </div>
-          <div className="about-page-portrait" role="img" aria-label={`${PROFILE.name} monogram portrait placeholder`}>
-            <span>{PROFILE.initials}</span>
-            <small>{PROFILE.currentRole}</small>
+          <div className="about-page-identity">
+            <span className="about-page-identity-index">PROFILE / 2026</span>
+            <span className="about-page-identity-mark" aria-hidden="true">{PROFILE.initials}</span>
+            <strong>{PROFILE.currentRole}</strong>
+            <span>{PROFILE.location}</span>
+            <span className="about-page-identity-rule" />
+            <small>Full-stack engineering · AI and data workflows · Application security</small>
           </div>
         </div>
       </section>

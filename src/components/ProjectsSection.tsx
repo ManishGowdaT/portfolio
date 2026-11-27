@@ -4,29 +4,9 @@ import { X, ArrowUpRight, CheckCircle2, Shield, Layers } from 'lucide-react';
 import { PROJECTS, ProjectItem, PROFILE } from '../data/portfolioData';
 import { useSectionReveal } from '../hooks/useSectionReveal';
 import { getCaseStudyPath } from '../routing/portfolioRoutes';
+import ProjectArtwork from './ProjectArtwork';
 
 /* ── Placeholder image block ───────────────────────────────────── */
-function ImagePlaceholder({ title }: { title: string }) {
-  return (
-    <div
-      role="img"
-      className="flex items-center justify-center rounded-sm bg-[var(--surface-raised)]"
-      style={{ aspectRatio: '3/2' }}
-      aria-label={`${title} project preview unavailable`}
-    >
-      <span
-        className="text-xs text-[var(--text-secondary)]"
-        style={{
-          fontFamily: 'var(--font-sans)',
-          letterSpacing: '0.08em',
-        }}
-      >
-        Preview unavailable
-      </span>
-    </div>
-  );
-}
-
 /* ── Detail modal ──────────────────────────────────────────────── */
 function ProjectModal({
   project,
@@ -119,8 +99,7 @@ function ProjectModal({
 
         {/* Body */}
         <div className="space-y-8 px-6 py-7 sm:px-8">
-          {/* Screenshot placeholder */}
-          <ImagePlaceholder title={project.title} />
+          <ProjectArtwork project={project} />
 
           {/* Overview */}
           <p
@@ -303,17 +282,15 @@ function ProjectRow({
             {expanded && (
               <>
                 <p className="project-row-summary">{project.summary}</p>
-                <p className="project-row-availability">Demo link not provided</p>
               </>
             )}
           </div>
 
-          {/* Image placeholder */}
           <div className="sm:col-span-4">
             <div
               className="overflow-hidden rounded-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 sm:opacity-85"
             >
-              <ImagePlaceholder title={project.title} />
+              <ProjectArtwork project={project} compact />
             </div>
           </div>
         </div>

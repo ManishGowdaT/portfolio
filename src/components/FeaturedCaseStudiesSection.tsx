@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '../data/portfolioData';
 import { useSectionReveal } from '../hooks/useSectionReveal';
 import { getCaseStudyPath } from '../routing/portfolioRoutes';
+import ProjectArtwork from './ProjectArtwork';
 
 interface Props {
   reducedMotion: boolean;
@@ -45,11 +46,7 @@ export default function FeaturedCaseStudiesSection({ reducedMotion, onNavigate }
                   <span>{project.index}</span>
                   <ArrowUpRight aria-hidden="true" />
                 </div>
-                <div className={`featured-study-visual visual-${project.visualType}`} aria-hidden="true">
-                  <span className="visual-orbit visual-orbit-one" />
-                  <span className="visual-orbit visual-orbit-two" />
-                  <span className="visual-mark">{project.index}</span>
-                </div>
+                <ProjectArtwork project={project} compact />
                 <div className="featured-study-content">
                   <p className="featured-study-domain">{project.domain}</p>
                   <h3>{project.title}</h3>
