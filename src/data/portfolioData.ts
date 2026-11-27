@@ -33,7 +33,7 @@ export interface ProjectItem {
 export const PROFILE = {
   name: 'Manish Gowda T',
   initials: 'MG',
-  role: 'Full Stack Developer',
+  role: 'Software Developer',
   location: 'Bengaluru, India',
   email: 'tgowda4707@gmail.com',
   phone: '+91 9483724707',
@@ -41,11 +41,11 @@ export const PROFILE = {
   linkedinLabel: 'linkedin.com/in/manish-gowda-t',
   github: 'https://github.com/ManishGowdaT',
   githubLabel: 'github.com/ManishGowdaT',
-  currentRole: 'Developer Intern at Ellipsonic',
+  currentRole: 'Software Developer',
   heroLead:
     'Building reliable full-stack platforms, AI-powered backend workflows, and security-conscious web systems.',
   summary:
-    'Full Stack Developer with hands-on experience in Python, Flask, FastAPI, Node.js, and AI-powered application development, with a solid understanding of how frontend and backend work together. Interested in cybersecurity, secure coding, and application security, with a strong focus on building reliable, user-friendly software and scalable data-driven solutions.',
+    'Software Developer with hands-on experience building full-stack applications and backend services with Python, Flask, FastAPI, and Node.js. Focused on reliable APIs, practical AI and data workflows, and secure, user-friendly software.',
   aboutPillars: [
     {
       code: '01',

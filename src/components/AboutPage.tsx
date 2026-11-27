@@ -27,9 +27,9 @@ export default function AboutPage({ reducedMotion }: Props) {
             </a>
           </div>
           <div className="about-page-identity">
-            <span className="about-page-identity-index">PROFILE / 2026</span>
+            <span className="about-page-identity-index">PROFILE</span>
             <span className="about-page-identity-mark" aria-hidden="true">{PROFILE.initials}</span>
-            <strong>{PROFILE.currentRole}</strong>
+            <strong>{PROFILE.role}</strong>
             <span>{PROFILE.location}</span>
             <span className="about-page-identity-rule" />
             <small>Full-stack engineering · AI and data workflows · Application security</small>

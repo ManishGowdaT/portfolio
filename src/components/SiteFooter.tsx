@@ -24,7 +24,7 @@ export default function SiteFooter({ onNavigate }: SiteFooterProps) {
       <div className="site-footer-shell">
         <div className="footer-feature">
           <div>
-            <p className="footer-eyebrow">Manish Gowda T · Full Stack Developer</p>
+            <p className="footer-eyebrow">Manish Gowda T · Software Developer</p>
             <h2>Let’s build something together.</h2>
             <a
               href="/ContactMe"

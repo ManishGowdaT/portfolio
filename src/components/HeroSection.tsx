@@ -61,7 +61,7 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
           className="hero-location hero-line"
           style={{ opacity: reducedMotion ? 1 : 0 }}
         >
-          {PROFILE.location} <span aria-hidden="true">/</span> {PROFILE.currentRole}
+          {PROFILE.location}
         </p>
 
         <div className="hero-name-wrap">
@@ -71,7 +71,7 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
           </h1>
         </div>
 
-        <p className="hero-role hero-line" style={{ opacity: reducedMotion ? 1 : 0 }}>{PROFILE.role}<span aria-hidden="true"> · </span>Software engineering</p>
+        <p className="hero-role hero-line" style={{ opacity: reducedMotion ? 1 : 0 }}>{PROFILE.role}<span aria-hidden="true"> · </span>Full-stack applications and backend systems</p>
 
         <div
           className="hero-description-row hero-line"
@@ -83,7 +83,7 @@ export default function HeroSection({ reducedMotion, onNavigate }: HeroSectionPr
             onClick={(event) => goTo(event, 'contact')}
             className="hero-contact-link"
           >
-            <span>Contact</span>
+            <span>Contact me</span>
             <ArrowUpRight aria-hidden="true" />
           </a>
         </div>

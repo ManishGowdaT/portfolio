@@ -47,13 +47,13 @@ export default function ExperienceSection({ reducedMotion, sectionIndex = '04' }
                       className="text-xl font-light tracking-tight text-[var(--text-primary)] sm:text-2xl"
                       style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}
                     >
-                      {item.role}
+                      {item.role} · {item.company}
                     </h3>
                     <p
                       className="mt-1 text-sm text-[var(--text-secondary)]"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
-                      {item.company} · {item.location}
+                      {item.location}
                     </p>
                   </div>
                   <span
