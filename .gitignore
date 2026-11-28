@@ -1,0 +1,14 @@
+# Installed dependencies
+/node_modules/
+
+# Generated production build
+/dist/
+
+# Local-only implementation and reference audit notes
+/docs/phase-1-foundation.md
+/docs/phase-2-navigation-footer.md
+/docs/phase-3-homepage.md
+/docs/phase-4-about.md
+/docs/phase-5-projects.md
+/docs/phase-6-case-studies-contact.md
+/docs/reference-audit.md
